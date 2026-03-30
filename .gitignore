@@ -1,0 +1,32 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Binary hasil build
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/bin/
+/dist/
+
+# Output build Go
+*.out
+
+# Dependency (tidak perlu di-commit)
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Log
+*.log
