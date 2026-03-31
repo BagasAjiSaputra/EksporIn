@@ -3,14 +3,15 @@ package utils
 import (
 	// "fmt"
 	"net/smtp"
+	"os"
 )
 
 func SendMail(to string, subject string, body string) error {
-	smtpHost := "smtp.gmail.com"
-	smtpPort := "587"
+	smtpHost :=	os.Getenv("SMTP_HOST")
+	smtpPort := os.Getenv("SMTP_PORT")
 
-	sender := "bagasaji932@gmail.com"
-	password := "drro pseu ukpo pbot"
+	sender := os.Getenv("SMTP_EMAIL")
+	password := os.Getenv("SMTP_PASS")
 
 	// msg := []byte(fmt.Sprintf("Subject: %s\r\n\r\n%s", subject, body))
 		message := []byte(
