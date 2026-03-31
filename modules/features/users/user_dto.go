@@ -6,8 +6,18 @@ import (
 )
 
 type CreateUserRequest struct {
+	Name		string		`json:"name"`
 	Email		string		`json:"email"`
 	Password	string		`json:"password"`
+}
+
+type RegisterResponse struct {
+	ID			uuid.UUID	`json:"id"`
+	Name		string		`json:"name"`
+	Email		string		`json:"email"`
+	Role		string		`json:"role"`
+	IsVerified	string		`json:"is_verified"`
+	CreatedAt	time.Time	`json:"created_at"`
 }
 
 type LoginRequest struct {
@@ -20,21 +30,31 @@ type LoginResponse struct {
 }
 
 type GetProfile struct {
-	ID			uuid.UUID	`gorm:"primarykey"`
-	Name		string		`gorm:"type:varchar(255);not null"`
-	Email		string		`gorm:"unique; not null"`
-	CreatedAt	time.Time	`gorm:"autoCreateTime;default:now()"`
+	ID			uuid.UUID	`json:"id"`
+	Name		string		`json:"name"`
+	Email		string		`json:"email"`
+	Role		string		`json:"role"`
+	IsVerified	string		`json:"is_verified"`
+	CreatedAt	time.Time	`json:"created_at"`
 }
 
 type UpdateUserRequest struct {
-	Name	string			`json:"name"`
+	Name		string			`json:"name"`
 	Email		string		`json:"email"`
 	Password	string		`json:"password"`
 }
 
 type UpdateUserResponse struct {
-	ID			uuid.UUID		`json:"id"`
+	ID			uuid.UUID	`json:"id"`
 	Name		string		`json:"name"`
 	Email		string		`json:"email"`
 	Password	string		`json:"password"`
+}
+
+type UpdateIsVerified struct {
+	ID			uuid.UUID	`json:"id"`
+}
+
+type UpdateIsVerifiedResponse struct {
+	Message		string		`json:"message"`
 }

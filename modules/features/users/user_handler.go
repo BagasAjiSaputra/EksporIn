@@ -16,16 +16,27 @@ func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		http.Error(w, "Invalid Request", http.StatusBadRequest)
+		return
 	}
 
-	user, err := RegisterUser(req.Email, req.Password)
+	user, err := RegisterUser(req.Name, req.Email, req.Password)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	response := RegisterResponse {
+		ID : user.ID,
+		Name : user.Name,
+		Email : user.Email,
+		Role : string(user.Role),
+		IsVerified: string(user.IsVerified),
+		CreatedAt: user.CreatedAt,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(user)
+	json.NewEncoder(w).Encode(response)
 }
 
 func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
@@ -66,6 +77,8 @@ func GetProfileHander(w http.ResponseWriter, r *http.Request) {
 		ID : userID,
 		Name : user.Name,
 		Email : user.Email,
+		Role : string(user.Role),
+		IsVerified: string(user.IsVerified),
 		CreatedAt: user.CreatedAt,
 	}
 
@@ -102,6 +115,38 @@ func UpdateProfileHandler(w http.ResponseWriter, r *http.Request) {
 		Name : user.Name,
 		Email: user.Email,
 		Password: user.Password,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+func UpdateRequestVerified(w http.ResponseWriter, r *http.Request) {
+	// var req UpdateIsVerified
+
+	// err := json.NewDecoder(r.Body).Decode(&req)
+
+	// if err != nil {
+	// 	http.Error(w, "Invalid Request", http.StatusBadRequest)
+	// 	return
+	// }
+
+	userID, ok := r.Context().Value(middleware.UserIDKey).(uuid.UUID)
+
+	if !ok  {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	_, err := RequestVerified(userID)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	response := UpdateIsVerifiedResponse{
+		Message: "Request Verified Has Been Send",
 	}
 
 	w.Header().Set("Content-Type", "application/json")

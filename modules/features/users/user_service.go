@@ -7,10 +7,10 @@ import (
 	"github.com/google/uuid"
 )
 
-func RegisterUser(email string, password string)(*models.User, error) {
+func RegisterUser(name string, email string, password string)(*models.User, error) {
 
-	if email == "" || password == "" {
-		return nil, errors.New("Email & Password Required")
+	if name == "" || email == "" || password == "" {
+		return nil, errors.New("All Field Required")
 	}
 
 	hashedPassword, err := utils.HashPassword(password)
@@ -20,6 +20,7 @@ func RegisterUser(email string, password string)(*models.User, error) {
 	}
 	
 	user := &models.User{
+		Name: name,
 		Email : email,
 		Password : hashedPassword,
 	}
@@ -65,8 +66,9 @@ func UpdateUserByID(id uuid.UUID, name string, email string, password string) (*
 		return nil, err
 	}
 
-	user.Name = name
-
+	if name != "" {
+		user.Name = name
+	}
 	if email != "" {
 		user.Email = email
 	}
@@ -85,6 +87,21 @@ func UpdateUserByID(id uuid.UUID, name string, email string, password string) (*
 	if err != nil {
 		return nil, err
 	}
+
+	return user, nil
+}
+
+func RequestVerified(id uuid.UUID ) (*models.User, error) {
+
+	user, err := FindByID(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	user.IsVerified = "pending"
+
+	err = UpdateUser(user)
 
 	return user, nil
 }
