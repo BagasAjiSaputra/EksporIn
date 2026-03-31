@@ -58,3 +58,19 @@ type UpdateIsVerified struct {
 type UpdateIsVerifiedResponse struct {
 	Message		string		`json:"message"`
 }
+
+type SendResetTokenRequest struct {
+	Email		string		`json:"email"`
+}
+type ResetTokenResponse struct {
+	Message		string		`json:"message"`
+}
+
+type ResetPasswordRequest struct {
+	Token		string		`json:"token"`
+	NewPassword	string		`json:"new_password"`
+}
+
+type ResetPasswordResponse struct {
+	Message		string		`json:"message"`
+}

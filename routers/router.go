@@ -16,6 +16,8 @@ func Router() {
 	// PUBLIC
 	mux.HandleFunc("/register", users.CreateUserHandler)
 	mux.HandleFunc("/login", users.LoginUserHandler)
+	mux.HandleFunc("/token-reset", users.SendTokenResetHandler)
+	mux.HandleFunc("/reset-password", users.ResetPasswordHandler)
 
 	// PROTECTED
 	protectedMux.HandleFunc("/profile", users.ProfileHandler)
