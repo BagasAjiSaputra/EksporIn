@@ -31,6 +31,8 @@ type User struct {
 	IsVerified	Verify		`gorm:"type:verify;default:'none'"`
 	IsRejected	bool		`gorm:"default:false;"`
 	CreatedAt	time.Time	`gorm:"autoCreateTime"`
+	ResetToken	*string		`gorm:"unique;default:null"`
+	ResetExp	*time.Time	`gorm:"default:null"`
 }
 
 func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
