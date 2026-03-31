@@ -29,6 +29,7 @@ type User struct {
 	Password	string		`gorm:"not null"`
 	Role		UserRole	`gorm:"type:user_role;default:'user'"`
 	IsVerified	Verify		`gorm:"type:verify;default:'none'"`
+	IsRejected	bool		`gorm:"default:false;"`
 	CreatedAt	time.Time	`gorm:"autoCreateTime"`
 }
 

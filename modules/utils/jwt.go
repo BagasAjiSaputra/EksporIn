@@ -11,11 +11,12 @@ import (
 
 var SECRET_KEY = []byte(os.Getenv("JWT_SECRET"))
 
-func GenerateToken(userID uuid.UUID, email string) (string, error) {
+func GenerateToken(userID uuid.UUID, email string, role string) (string, error) {
 
 	claims := jwt.MapClaims{
 		"user_id" : userID,
 		"email" : email,
+		"role" : role,
 		"exp" : time.Now().Add(time.Hour* 24).Unix(),
 	}
 

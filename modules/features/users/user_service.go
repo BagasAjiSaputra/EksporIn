@@ -45,7 +45,7 @@ func LoginUser(email string, password string) (string, error) {
 		return "", errors.New("Invalid Credentials")
 	}
 
-	token, err := utils.GenerateToken(user.ID, user.Email)
+	token, err := utils.GenerateToken(user.ID, user.Email, string(user.Role))
 
 	if err != nil {
 		return "", err

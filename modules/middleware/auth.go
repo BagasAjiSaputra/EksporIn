@@ -10,7 +10,10 @@ import (
 
 // Konteks Klaim JWT
 type contextKey string
-const UserIDKey = contextKey("user_id")
+const (
+	UserIDKey = contextKey("user_id")
+	UserRole = contextKey("role")
+)
 
 func JWTAuth(next http.Handler) http.Handler{
 
@@ -53,7 +56,14 @@ func JWTAuth(next http.Handler) http.Handler{
 			return
 		}
 
+		role, ok := claims["role"].(string)
+		if !ok {
+			http.Error(w, "No Roles", http.StatusUnauthorized)
+			return
+		}
+
 		ctx := context.WithValue(r.Context(), UserIDKey, userID)
+		ctx = context.WithValue(ctx, UserRole, role)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
