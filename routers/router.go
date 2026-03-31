@@ -18,6 +18,7 @@ func Router() {
 
 	// PROTECTED
 	protectedMux.HandleFunc("/profile", users.ProfileHandler)
+	protectedMux.HandleFunc("/verified", users.UpdateRequestVerified)
 
 	mux.Handle("/api/", http.StripPrefix("/api",middleware.JWTAuth(protectedMux)))
 

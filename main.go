@@ -3,7 +3,7 @@ package main
 import (
 	"eksporin/config"
 	"eksporin/routers"
-	// "eksporin/migrations"
+	"eksporin/migrations"
 	"github.com/joho/godotenv"
 )
 
@@ -11,7 +11,7 @@ func main() {
 	
 	godotenv.Load()
 	config.ConnectDB()
-	routers.Router()
+	migrations.Migration()
 
-	// migrations.Migration()
+	routers.Router()
 }

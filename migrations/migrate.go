@@ -7,9 +7,15 @@ import (
 )
 
 func Migration() {
-	config.DB.AutoMigrate(
+	err := config.DB.AutoMigrate(
 		&models.User{},
 	)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	
 
 	fmt.Println("Migrate DB Sukses")
 }
