@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func AcceptVerified(userID uuid.UUID, approve bool) (*models.User, error) {
+func AcceptVerifiedService(userID uuid.UUID, approve bool) (*models.User, error) {
 	user, err := FindByID(userID)
 
 	if err != nil {

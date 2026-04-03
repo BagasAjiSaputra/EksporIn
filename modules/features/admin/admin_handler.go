@@ -25,7 +25,7 @@ func AdminVerifyUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := AcceptVerified(req.UserID, req.Approve) 
+	user, err := AcceptVerifiedService(req.UserID, req.Approve) 
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

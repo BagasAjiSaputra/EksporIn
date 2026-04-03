@@ -7,9 +7,9 @@ import (
 	"github.com/google/uuid"
 )
 
-func RegisterCompany(id uuid.UUID, name string, phone string, address string) (*models.Company, error) {
+func RegisterCompanyService(user_id uuid.UUID, name string, phone string, address string) (*models.Company, error) {
 
-	user, err := FindByID(id)
+	user, err := FindByID(user_id)
 
 	if err != nil {
 		return nil, errors.New("User Hilang")
@@ -19,12 +19,12 @@ func RegisterCompany(id uuid.UUID, name string, phone string, address string) (*
 		return nil, errors.New("Belum Terverifikasi")
 	}
 
-	if id == uuid.Nil || name == "" || phone == "" || address == "" {
+	if user_id == uuid.Nil || name == "" || phone == "" || address == "" {
 		return nil, errors.New("All Field Required")
 	}
 
 	company := &models.Company{
-		UserID: id,
+		UserID: user_id,
 		CompanyName: name,
 		Phone: phone,
 		Address: address,
@@ -33,7 +33,33 @@ func RegisterCompany(id uuid.UUID, name string, phone string, address string) (*
 	err = CreateCompany(company)
 
 	if err != nil {
-		return nil, errors.New("Failed Create Company")
+		return nil, errors.New("Gagal Mendaftarkan Perusahaan")
+	}
+
+	return company, nil
+}
+
+func UpdateCompanyService(user_id uuid.UUID, name string, phone string, address string) (*models.Company, error) {
+	company, err := FindCompany(user_id)
+
+	if err != nil {
+		return nil, errors.New("Perusahaan Tidak Ditemukan")
+	}
+
+
+	if user_id == uuid.Nil || name == "" || phone == "" || address == "" {
+		return nil, errors.New("All Field Required")
+	}
+
+	company.CompanyName = name
+	company.Phone = phone
+	company.Address = address
+
+
+	err = UpdateCompany(company)
+
+	if err != nil {
+		return nil, errors.New("Gagal Update Perusahaan")
 	}
 
 	return company, nil

@@ -21,11 +21,11 @@ func RegisterCompanyHandler(w http.ResponseWriter, r *http.Request) {
 	userID, ok := r.Context().Value(middleware.UserIDKey).(uuid.UUID)
 
 	if !ok {
-		http.Error(w, "Unauthorized", http.StatusBadRequest)
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
 
-	_, err = RegisterCompany(userID, req.CompanyName, req.Phone, req.Addres)
+	_, err = RegisterCompanyService(userID, req.CompanyName, req.Phone, req.Address)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -33,10 +33,44 @@ func RegisterCompanyHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := RegisterCompanyResponse{
-		Message : "Berhasil Menambahkan Company",
+		Message : "Berhasil Mendaftarkan Company",
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
 
+func UpdateCompanyHandler(w http.ResponseWriter, r *http.Request) {
+	var req UpdateCompanyRequest
+
+	err := json.NewDecoder(r.Body).Decode(&req)
+
+	if err != nil {
+		http.Error(w, "Invalid Request", http.StatusBadRequest)
+		return
+	}
+
+	userID, ok := r.Context().Value(middleware.UserIDKey).(uuid.UUID)
+
+	if !ok {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	company, err := UpdateCompanyService(userID, req.CompanyName, req.Phone, req.Address)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	response := UpdateCompanyResponse{
+		Message : "Perusahaan Berhasil Di Update",
+		CompanyName: company.CompanyName,
+		Phone : company.Phone,
+		Address : company.Address,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}

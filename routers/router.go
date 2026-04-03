@@ -22,10 +22,10 @@ func Router() {
 	mux.HandleFunc("/reset-password", users.ResetPasswordHandler)
 
 	// PROTECTED
-	protectedMux.HandleFunc("/profile", users.ProfileHandler)
+	protectedMux.HandleFunc("/profile", users.ProfileRouter)
 	protectedMux.HandleFunc("/verified", users.UpdateRequestVerified)
 	protectedMux.HandleFunc("/approve", admin.AdminVerifyUser)
-	protectedMux.HandleFunc("/company", company.RegisterCompanyHandler)
+	protectedMux.HandleFunc("/company", company.CompanyRouter)
 
 	
 
