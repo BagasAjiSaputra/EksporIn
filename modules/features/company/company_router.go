@@ -11,6 +11,8 @@ func CompanyRouter(w http.ResponseWriter, r *http.Request) {
 			RegisterCompanyHandler(w, r)
 		case http.MethodPut:
 			UpdateCompanyHandler(w, r)
+		default:
+			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
 
 }

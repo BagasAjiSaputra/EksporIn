@@ -3,6 +3,7 @@ package routers
 import (
 	"eksporin/modules/features/admin"
 	"eksporin/modules/features/company"
+	"eksporin/modules/features/commodity"
 	"eksporin/modules/features/users"
 	"eksporin/modules/middleware"
 
@@ -24,10 +25,12 @@ func Router() {
 	// PROTECTED
 	protectedMux.HandleFunc("/profile", users.ProfileRouter)
 	protectedMux.HandleFunc("/verified", users.UpdateRequestVerified)
-	protectedMux.HandleFunc("/approve", admin.AdminVerifyUser)
 	protectedMux.HandleFunc("/company", company.CompanyRouter)
 
-	
+	// ADMIN
+	protectedMux.HandleFunc("/commodity", commodity.CommodityRouter)
+	protectedMux.HandleFunc("/users", admin.AdminRouter)
+	protectedMux.HandleFunc("/approve", admin.AdminVerifyUser)
 
 	mux.Handle("/api/", http.StripPrefix("/api",middleware.JWTAuth(protectedMux)))
 

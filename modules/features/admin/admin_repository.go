@@ -25,3 +25,11 @@ func FindByID(id uuid.UUID) (*models.User, error) {
 func UpdateUser(user *models.User) error {
 	return config.DB.Save(user).Error
 }
+
+func GetAllUser() ([]models.User, error) {
+	var user []models.User
+
+	result := config.DB.Find(&user).Error
+
+	return user, result
+}

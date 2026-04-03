@@ -33,3 +33,14 @@ func AcceptVerifiedService(userID uuid.UUID, approve bool) (*models.User, error)
 
 	return user, nil
 }
+
+func GetAllUserService() ([]models.User, error) {
+	
+	users, err := GetAllUser()
+
+	if err != nil {
+		return nil, errors.New("Gagal mengambil data user")
+	}
+
+	return users, nil
+}
