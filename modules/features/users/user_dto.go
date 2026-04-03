@@ -39,7 +39,7 @@ type GetProfile struct {
 }
 
 type UpdateUserRequest struct {
-	Name		string			`json:"name"`
+	Name		string		`json:"name"`
 	Email		string		`json:"email"`
 	Password	string		`json:"password"`
 }
@@ -56,5 +56,21 @@ type UpdateIsVerified struct {
 }
 
 type UpdateIsVerifiedResponse struct {
+	Message		string		`json:"message"`
+}
+
+type SendResetTokenRequest struct {
+	Email		string		`json:"email"`
+}
+type ResetTokenResponse struct {
+	Message		string		`json:"message"`
+}
+
+type ResetPasswordRequest struct {
+	Token		string		`json:"token"`
+	NewPassword	string		`json:"new_password"`
+}
+
+type ResetPasswordResponse struct {
 	Message		string		`json:"message"`
 }

@@ -1,9 +1,11 @@
 package users
 
 import (
+	"eksporin/modules/middleware"
+	// "eksporin/modules/utils"
 	"encoding/json"
 	"net/http"
-	"eksporin/modules/middleware"
+
 	"github.com/google/uuid"
 )
 
@@ -150,5 +152,53 @@ func UpdateRequestVerified(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+func SendTokenResetHandler(w http.ResponseWriter, r *http.Request) {
+	var req SendResetTokenRequest
+
+	err := json.NewDecoder(r.Body).Decode(&req)
+
+	if err != nil {
+		http.Error(w, "Invalid", http.StatusBadRequest)
+		return 
+	}
+
+	user, _ := RequestResetPassword(req.Email)
+
+	if user != "" {
+		//Link reset token
+		
+	}
+
+	response := ResetTokenResponse{
+		Message: "Link Reset has been Sent",
+	}
+
+	json.NewEncoder(w).Encode(response)
+}
+
+func ResetPasswordHandler(w http.ResponseWriter, r *http.Request) {
+	var req ResetPasswordRequest
+
+	err := json.NewDecoder(r.Body).Decode(&req)
+
+	if err != nil {
+		http.Error(w, "Invalid Request", http.StatusBadRequest)
+		return
+	}
+
+	_, err = UpdatePassword(req.Token, req.NewPassword)
+
+	if err != nil {
+		http.Error(w, "Failed Update Password", http.StatusBadRequest)
+		return
+	}
+
+	response := ResetPasswordResponse{
+		Message:"Password Has been updated",
+	}
+
 	json.NewEncoder(w).Encode(response)
 }
