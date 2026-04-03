@@ -26,3 +26,13 @@ type UpdateCommodityResponse struct {
 	Name		string		`json:"name"`
 	Category	string		`json:"category"`
 }
+
+type DeleteCommodityRequest struct {
+	ID			uuid.UUID	`json:"id"`
+}
+
+type DeleteCommodityResponse struct {
+	Message		string		`json:"message"`
+	Name		string		`json:"name"`
+	Category	string		`json:"category"`
+}

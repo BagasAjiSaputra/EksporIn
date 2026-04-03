@@ -25,3 +25,7 @@ func FindCommodity(id uuid.UUID) (*models.Commodity, error) {
 func UpdateCommodity(commodity *models.Commodity) error {
 	return config.DB.Save(commodity).Error
 }
+
+func DeleteCommodity(id uuid.UUID) error {
+	return config.DB.Delete(&models.Commodity{}, "id = ?", id).Error
+}

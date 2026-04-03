@@ -25,10 +25,12 @@ func Router() {
 	// PROTECTED
 	protectedMux.HandleFunc("/profile", users.ProfileRouter)
 	protectedMux.HandleFunc("/verified", users.UpdateRequestVerified)
-	protectedMux.HandleFunc("/approve", admin.AdminVerifyUser)
 	protectedMux.HandleFunc("/company", company.CompanyRouter)
-	protectedMux.HandleFunc("/commodity", commodity.CommodityRouter)
 
+	// ADMIN
+	protectedMux.HandleFunc("/commodity", commodity.CommodityRouter)
+	protectedMux.HandleFunc("/users", admin.AdminRouter)
+	protectedMux.HandleFunc("/approve", admin.AdminVerifyUser)
 
 	mux.Handle("/api/", http.StripPrefix("/api",middleware.JWTAuth(protectedMux)))
 

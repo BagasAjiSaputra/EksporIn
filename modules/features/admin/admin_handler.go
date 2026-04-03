@@ -42,3 +42,37 @@ func AdminVerifyUser(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
+
+func GetAllUserHandler(w http.ResponseWriter, r *http.Request) {
+	role, ok := r.Context().Value(middleware.UserRole).(string)
+
+	if !ok || role != "admin" {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	users, err := GetAllUserService()
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var response []AllUserData
+
+	for _, user := range users {
+		response = append(response, AllUserData{
+			ID: user.ID,
+			Name: user.Name,
+			Email: user.Email,
+			Role: string(user.Role),
+			IsVerified: string(user.IsVerified),
+			IsRejected: user.IsRejected,
+			CreatedAt: user.CreatedAt,
+			ResetToken: user.ResetToken,
+			ResetExp: user.ResetExp,
+		})
+	}
+
+	json.NewEncoder(w).Encode(response)
+}

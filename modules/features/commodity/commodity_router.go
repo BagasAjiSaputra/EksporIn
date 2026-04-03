@@ -11,6 +11,8 @@ func CommodityRouter(w http.ResponseWriter, r *http.Request) {
 			CreateCommodityHandler(w, r)
 		case http.MethodPut:
 			UpdateCommodityHandler(w, r)
+		case http.MethodDelete:
+			DeleteCommodityHandler(w, r)
 
 		default:
 			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)

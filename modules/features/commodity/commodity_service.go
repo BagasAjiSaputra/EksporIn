@@ -41,3 +41,20 @@ func UpdateCommodityService(id uuid.UUID, name string, category string) (*models
 
 	return commodity, nil
 }
+
+func DeleteCommodityService(id uuid.UUID) (*models.Commodity, error) {
+
+	commodity, err := FindCommodity(id)
+
+	if err != nil {
+		return nil, errors.New("Komoditas Tidak Ditemukan")
+	}
+
+	err = DeleteCommodity(id)
+
+	if err != nil {
+		return nil, errors.New("Gagal Menghapus Komoditas")
+	}
+
+	return commodity, nil
+}
