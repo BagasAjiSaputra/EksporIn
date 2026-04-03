@@ -33,6 +33,8 @@ type User struct {
 	CreatedAt	time.Time	`gorm:"autoCreateTime"`
 	ResetToken	*string		`gorm:"unique;default:null"`
 	ResetExp	*time.Time	`gorm:"default:null"`
+
+	Company		*Company	`gorm:"foreignKey:UserID"`
 }
 
 func (u *User) BeforeCreate(tx *gorm.DB) (err error) {

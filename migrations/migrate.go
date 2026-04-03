@@ -9,6 +9,7 @@ import (
 func Migration() {
 	err := config.DB.AutoMigrate(
 		&models.User{},
+		&models.Company{},
 	)
 
 	if err != nil {
