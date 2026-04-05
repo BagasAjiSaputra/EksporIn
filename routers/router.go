@@ -2,8 +2,11 @@ package routers
 
 import (
 	"eksporin/modules/features/admin"
-	"eksporin/modules/features/company"
 	"eksporin/modules/features/commodity"
+	"eksporin/modules/features/company"
+	"eksporin/modules/features/listing"
+
+	// "eksporin/modules/features/listing"
 	"eksporin/modules/features/users"
 	"eksporin/modules/middleware"
 
@@ -26,6 +29,7 @@ func Router() {
 	protectedMux.HandleFunc("/profile", users.ProfileRouter)
 	protectedMux.HandleFunc("/verified", users.UpdateRequestVerified)
 	protectedMux.HandleFunc("/company", company.CompanyRouter)
+	protectedMux.HandleFunc("/listing", listing.ListingRouter)
 
 	// ADMIN
 	protectedMux.HandleFunc("/commodity", commodity.CommodityRouter)

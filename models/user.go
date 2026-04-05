@@ -23,7 +23,7 @@ const (
 )
 
 type User struct {
-	ID			uuid.UUID	`gorm:"type:uuid;primaryKey"`
+	ID			uuid.UUID	`gorm:"type:uuid;primaryKey;default:gen_random_uuid();"`
 	Name		string		`gorm:"type:varchar(255)"`
 	Email		string		`gorm:"unique; not null"`
 	Password	string		`gorm:"not null"`

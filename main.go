@@ -14,4 +14,6 @@ func main() {
 	migrations.Migration()
 
 	routers.Router()
+
+	
 }

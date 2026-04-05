@@ -101,12 +101,6 @@ go build -o eksporin .
 
 ---
 
-## Kontribusi
+## Clean Architecture
 
-Kontribusi sangat disambut. Silakan fork repository ini, buat branch fitur baru, dan buka pull request dengan deskripsi perubahan yang jelas.
-
----
-
-## Lisensi
-
-Proyek ini bersifat open source. Silakan merujuk ke repository untuk detail lisensi.
+Implementasi Clean Architecture API Golang untuk Long Term Development
