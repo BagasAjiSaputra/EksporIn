@@ -19,6 +19,13 @@ func CreateListingHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	role, ok := r.Context().Value(middleware.UserRole).(string)
+
+	if !ok || role != "agregator" {
+		http.Error(w, "Belum Terverifikasi", http.StatusUnauthorized)
+		return
+	}
+
 	userID, ok := r.Context().Value(middleware.UserIDKey).(uuid.UUID)
 
 	if !ok {

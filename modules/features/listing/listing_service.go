@@ -2,12 +2,49 @@ package listing
 
 import (
 	"eksporin/models"
-	// "errors"
+	"errors"
 	"github.com/google/uuid"
 	"time"
 )
 
 func CreateListingService(input *CreateListingRequest) error {
+
+	if input.UserID == uuid.Nil {
+		return errors.New("User Invalid")
+	}
+
+	if input.CommodityID == uuid.Nil {
+		return errors.New("Komoditas Invalid")
+	}
+
+	if input.CompanyID == uuid.Nil {
+		return errors.New("Perusahaan Invalid")
+	}
+
+	if input.Title == "" {
+		return errors.New("Judul wajib diisi")
+	}
+
+	if input.Description == "" {
+		return errors.New("Deskripsi wajib diisi")
+	}
+
+	if input.MinVolume <= 0 {
+		return errors.New("Satuan berat harus valid")
+	}
+
+	if input.PriceBuy == 0 {
+		return errors.New("Harga tidak valid")
+	}
+
+	if input.Location == "" {
+		return errors.New("Lokasi harus ditentukan")
+	}
+
+	if input.Address == "" {
+		return errors.New("Alamat harus ditentukan")
+	}
+
 	
 	ListingInput := models.Listing{
 		ID: uuid.New(),
