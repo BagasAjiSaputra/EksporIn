@@ -72,3 +72,14 @@ func CreateListingService(input *CreateListingRequest) error {
 
 	return nil
 }
+
+func GetAllListingService() ([]models.Listing, error) {
+
+	listing, err := GetAllListing()
+
+	if err != nil {
+		return nil, errors.New("Gagal mengambil listing")
+	}
+
+	return listing, nil
+}

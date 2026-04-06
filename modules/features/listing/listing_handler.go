@@ -49,3 +49,39 @@ func CreateListingHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
+
+func GetAllListingHandler(w http.ResponseWriter, r *http.Request) {
+
+	listings, err := GetAllListingService()
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var response []AllListingData
+
+	for _, listing := range listings {
+		response = append(response, AllListingData {
+			ID: listing.ID,
+			UserID: listing.UserID,
+			CommodityID: listing.CommodityID,
+			CompanyID: listing.CompanyID,
+			Title: listing.Title,
+			Description: listing.Description,
+			MinVolume: listing.MinVolume,
+			CurrentVolume: listing.CurrentVolume,
+			Quality: listing.Quality,
+			PriceBuy: listing.PriceBuy,
+			Location: listing.Location,
+			Address: listing.Address,
+			CreatedAt: listing.CreatedAt,
+			UpdatedAt: listing.UpdatedAt,
+			ExpiredAt: listing.ExpiredAt,
+			Status: string(listing.Status),
+		})
+	}
+
+	json.NewEncoder(w).Encode(response)
+
+}
