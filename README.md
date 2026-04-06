@@ -1,12 +1,12 @@
 # EksporIn
 
-Platform Komoditas Ekspor — REST API yang dibangun dengan Go untuk mengelola dan menampilkan data komoditas ekspor.
+Platform Komoditas Ekspor Akumulasi — dokumentasi REST API yang dibangun dengan Go untuk mengelola data transaksi komoditas ekspor.
 
 ---
 
 ## Gambaran Umum
 
-EksporIn adalah platform API backend yang dirancang untuk memfasilitasi pengelolaan dan penemuan komoditas ekspor. Sistem ini menyediakan akses data terstruktur untuk daftar komoditas, mendukung kebutuhan eksportir, pembeli, dan operator logistik.
+EksporIn adalah dokumentasi platform API backend yang dirancang untuk memfasilitasi data transaksi komoditas ekspor. Sistem ini menyediakan akses data terstruktur & skalable untuk platform komoditas, mendukung kebutuhan eksportir dan petani.
 
 ---
 
@@ -15,8 +15,7 @@ EksporIn adalah platform API backend yang dirancang untuk memfasilitasi pengelol
 | Komponen | Detail |
 |----------|--------|
 | Bahasa | Go (Golang) |
-| Routing | Custom router |
-| Database | Relasional (PostgreSQL / MySQL) |
+| Database | PostgreSQL / MySQL |
 | ORM / Migrasi | GORM dengan auto-migration |
 | Environment | godotenv |
 
@@ -66,12 +65,12 @@ cp .env.example .env
 Edit file `.env` sesuai konfigurasi kamu:
 
 ```env
-DB_HOST=localhost
-DB_PORT=5432
+DB_HOST=localhost (default)
+DB_PORT=5432 (default)
 DB_USER=username_database
 DB_PASS=password_database
-DB_NAME=eksporin
-APP_PORT=8080
+DB_NAME=name_database
+APP_PORT=8080 (default)
 ```
 
 ### 3. Install Dependensi
@@ -96,8 +95,6 @@ Aplikasi akan secara otomatis terhubung ke database, menjalankan migrasi, dan me
 go build -o eksporin .
 ./eksporin
 ```
-
-
 
 ---
 

@@ -24,12 +24,13 @@ func Router() {
 	mux.HandleFunc("/login", users.LoginUserHandler)
 	mux.HandleFunc("/token-reset", users.SendTokenResetHandler)
 	mux.HandleFunc("/reset-password", users.ResetPasswordHandler)
+	mux.HandleFunc("/listing", listing.GetAllListingHandler)
 
 	// PROTECTED
 	protectedMux.HandleFunc("/profile", users.ProfileRouter)
 	protectedMux.HandleFunc("/verified", users.UpdateRequestVerified)
 	protectedMux.HandleFunc("/company", company.CompanyRouter)
-	protectedMux.HandleFunc("/listing", listing.ListingRouter)
+	protectedMux.HandleFunc("/manage-listing", listing.ListingRouter)
 
 	// ADMIN
 	protectedMux.HandleFunc("/commodity", commodity.CommodityRouter)
