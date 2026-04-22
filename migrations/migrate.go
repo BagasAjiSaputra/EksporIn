@@ -11,6 +11,7 @@ func Migration() {
 		&models.User{},
 		&models.Company{},
 		&models.Commodity{},
+		&models.Listing{},
 	)
 
 	if err != nil {
