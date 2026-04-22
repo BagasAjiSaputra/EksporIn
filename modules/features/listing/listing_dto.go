@@ -49,3 +49,7 @@ type AllListingData struct {
 	ExpiredAt     time.Time     `json:"expired_at"`
 	Status        string `json:"status"`
 }
+
+type GetListingIDRequest struct {
+	ID uuid.UUID	`json:"id"`
+}
