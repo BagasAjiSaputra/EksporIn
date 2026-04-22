@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
+	// "fmt"
 )
 
 func CreateListingHandler(w http.ResponseWriter, r *http.Request) {
@@ -85,3 +86,26 @@ func GetAllListingHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 
 }
+
+// func GetListingByIDHandler(w http.ResponseWriter, r *http.Request) {
+
+// 	var req GetListingIDRequest
+
+// 	err := json.NewDecoder(r.Body).Decode(&req)
+
+// 	if err != nil {
+// 		http.Error(w, "Invalid Request", http.StatusBadRequest)
+// 		return
+// 	}
+
+
+// 	listings, err = GetListingByIDService(req.ID)
+
+// 	if err != nil {
+// 		http.Error(w, "Invalid Request", http.StatusBadRequest)
+// 		return
+// 	}
+
+// 	var 
+
+// }
