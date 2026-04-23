@@ -1,4 +1,4 @@
-import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, ResetRequest, ResetResponse } from "./auth.types";
+import { LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, ResetPasswordRequest, ResetPasswordResponse, ResetRequest, ResetResponse } from "./auth.types";
 
 export async function LoginApi(data : LoginRequest): Promise<LoginResponse> {
     
@@ -49,3 +49,19 @@ export async function ResetApi(data : ResetRequest): Promise<ResetResponse> {
     return response
 }
 
+export async function ResetPasswordApi(data : ResetPasswordRequest): Promise<ResetPasswordResponse> {
+
+    const res = await fetch("/api/reset_password", {
+        method : "POST",
+        body : JSON.stringify(data)
+    })
+
+    const response = await res.json()
+
+    if (!res.ok) {
+        throw response
+    }
+
+    return response
+
+}

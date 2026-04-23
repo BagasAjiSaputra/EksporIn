@@ -1,5 +1,5 @@
-import { LoginApi, RegisterApi, ResetApi } from "./auth.api";
-import { LoginRequest, RegisterRequest, ResetRequest } from "./auth.types";
+import { LoginApi, RegisterApi, ResetApi, ResetPasswordApi } from "./auth.api";
+import { LoginRequest, RegisterRequest, ResetPasswordRequest, ResetRequest } from "./auth.types";
 
 
 export async function LoginService(data : LoginRequest) {
@@ -37,6 +37,19 @@ export async function ResetService(data : ResetRequest) {
 
     const result = await ResetApi({
         email : data.email
+    })
+
+    return result
+}
+
+export async function ResetPasswordService(data :ResetPasswordRequest) {
+    if (!data.token || !data.new_password) {
+        throw new Error("Password harus diisi")
+    }
+
+    const result = await ResetPasswordApi({
+        token : data.token,
+        new_password : data.new_password
     })
 
     return result

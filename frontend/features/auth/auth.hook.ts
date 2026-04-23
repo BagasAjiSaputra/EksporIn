@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react";
-import { LoginService, RegisterService, ResetService } from "./auth.service";
-import { LoginRequest, RegisterRequest, ResetRequest } from "./auth.types";
+import { LoginService, RegisterService, ResetPasswordService, ResetService } from "./auth.service";
+import { LoginRequest, RegisterRequest, ResetPasswordRequest, ResetRequest } from "./auth.types";
 
 export function useLogin() {
 
@@ -61,4 +61,23 @@ export function useReset() {
 
     return {reset, loading}
 
+}
+
+export function useResetPassword() {
+    const [loading, setLoading] = useState(false)
+
+    async function resetPassword(data : ResetPasswordRequest) {
+        setLoading(true)
+        try {
+            const res = await ResetPasswordService({
+                token : data.token,
+                new_password : data.new_password
+            })
+            return res
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return { resetPassword, loading}
 }
