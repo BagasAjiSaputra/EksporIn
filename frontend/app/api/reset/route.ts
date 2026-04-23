@@ -4,10 +4,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(req : Request) {
 
-    try {
-        const body = await req.json()
+    const body = await req.json()
 
-    const res = await fetch(`${process.env.BASE_URL}/login`, {
+    const res = await fetch(`${process.env.BASE_URL}/token-reset`, {
         method : "POST",
         headers : {
             "Content-Type" : "Application/json",
@@ -21,16 +20,7 @@ export async function POST(req : Request) {
         return NextResponse.json(data, {status : res.status})
     }
 
-    const response = NextResponse.json(data)
-
-    response.cookies.set("token", data.token, {
-        httpOnly : true,
-        secure : true,
-        path : "/",
-    })
+    const response = NextResponse.json({success : true})
 
     return response
-    } catch {
-        return NextResponse.json({message : 'Internal Server Error'}, {status : 500})
-    }
 }

@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react";
-import { LoginService } from "./auth.service";
-import { LoginRequest } from "./auth.types";
+import { LoginService, RegisterService, ResetPasswordService, ResetService } from "./auth.service";
+import { LoginRequest, RegisterRequest, ResetPasswordRequest, ResetRequest } from "./auth.types";
 
 export function useLogin() {
 
@@ -22,5 +22,62 @@ export function useLogin() {
     }
 
     return { login, loading}
+}
 
+export function useRegister() {
+    const [loading, setLoading] = useState(false)
+
+    async function register(data : RegisterRequest) {
+        setLoading(true)
+        try {
+            const res = await RegisterService({
+                name : data.name,
+                email : data.email,
+                password : data.password
+            })
+            return res
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return {register, loading}
+}
+
+export function useReset() {
+    const [loading, setLoading] = useState(false)
+
+    async function reset(data : ResetRequest) {
+        setLoading(true)
+        try {
+            const res = await ResetService({
+                email : data.email
+            })
+            return res
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return {reset, loading}
+
+}
+
+export function useResetPassword() {
+    const [loading, setLoading] = useState(false)
+
+    async function resetPassword(data : ResetPasswordRequest) {
+        setLoading(true)
+        try {
+            const res = await ResetPasswordService({
+                token : data.token,
+                new_password : data.new_password
+            })
+            return res
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    return { resetPassword, loading}
 }
