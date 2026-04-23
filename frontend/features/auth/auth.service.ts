@@ -1,5 +1,5 @@
-import { LoginApi, ResetApi } from "./auth.api";
-import { LoginRequest, ResetRequest } from "./auth.types";
+import { LoginApi, RegisterApi, ResetApi } from "./auth.api";
+import { LoginRequest, RegisterRequest, ResetRequest } from "./auth.types";
 
 
 export async function LoginService(data : LoginRequest) {
@@ -8,6 +8,20 @@ export async function LoginService(data : LoginRequest) {
     }
 
     const result = await LoginApi({
+        email : data.email,
+        password : data.password
+    })
+
+    return result
+}
+
+export async function RegisterService(data: RegisterRequest) {
+    if (!data.name || !data.email || !data.password) {
+        throw new Error("Semua Field wajib diisi")
+    }
+
+    const result = await RegisterApi({
+        name : data.name,
         email : data.email,
         password : data.password
     })

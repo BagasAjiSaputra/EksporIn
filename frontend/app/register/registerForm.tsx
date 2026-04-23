@@ -1,10 +1,12 @@
 "use client"
 import { useState } from "react"
-import { useReset } from "@/features/auth/auth.hook"
+import { useRegister } from "@/features/auth/auth.hook"
 
-export default function ResetForm() {
-  const { reset, loading } = useReset()
+export default function RegisterForm() {
+  const { register, loading } = useRegister()
+  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [response, setResponse] = useState("")
   const [isSuccess, setIsSuccess] = useState(false)
 
@@ -12,12 +14,12 @@ export default function ResetForm() {
     e.preventDefault()
     setResponse("")
     try {
-      await reset({ email })
+      await register({ name, email, password })
       setIsSuccess(true)
-      setResponse("Link Dikirim ke Email")
+      setResponse("Registrasi Berhasil")
     } catch (error: any) {
       setIsSuccess(false)
-      setResponse(error.message || "Link Gagal Dikirim")
+      setResponse(error.error || "Registrasi gagal")
     }
   }
 
@@ -66,7 +68,7 @@ export default function ResetForm() {
             color: "#1A1A1A",
             letterSpacing: "-0.3px",
           }}>
-            Reset Password
+            Daftar Akun
           </span>
         </div>
 
@@ -94,6 +96,37 @@ export default function ResetForm() {
               </div>
             )}
 
+            {/* Name field */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{
+                fontSize: "13px",
+                fontWeight: 500,
+                color: "#5F5E5A",
+                letterSpacing: "0.1px",
+              }}>
+                Nama
+              </label>
+              <input
+                type="name"
+                placeholder="nama"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                style={{
+                  padding: "10px 14px",
+                  fontSize: "14px",
+                  color: "#1A1A1A",
+                  backgroundColor: "#FAFAF8",
+                  border: "1px solid #D3D1C7",
+                  borderRadius: "8px",
+                  outline: "none",
+                  transition: "border-color 0.15s",
+                  fontFamily: "inherit",
+                }}
+                onFocus={e => e.currentTarget.style.borderColor = "#888780"}
+                onBlur={e => e.currentTarget.style.borderColor = "#D3D1C7"}
+              />
+            </div>
+
             {/* Email field */}
             <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
               <label style={{
@@ -109,6 +142,37 @@ export default function ResetForm() {
                 placeholder="nama@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                style={{
+                  padding: "10px 14px",
+                  fontSize: "14px",
+                  color: "#1A1A1A",
+                  backgroundColor: "#FAFAF8",
+                  border: "1px solid #D3D1C7",
+                  borderRadius: "8px",
+                  outline: "none",
+                  transition: "border-color 0.15s",
+                  fontFamily: "inherit",
+                }}
+                onFocus={e => e.currentTarget.style.borderColor = "#888780"}
+                onBlur={e => e.currentTarget.style.borderColor = "#D3D1C7"}
+              />
+            </div>
+
+            {/* Password field */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label style={{
+                fontSize: "13px",
+                fontWeight: 500,
+                color: "#5F5E5A",
+                letterSpacing: "0.1px",
+              }}>
+                Password
+              </label>
+              <input
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 style={{
                   padding: "10px 14px",
                   fontSize: "14px",
@@ -148,7 +212,7 @@ export default function ResetForm() {
               onMouseDown={e => { if (!loading) e.currentTarget.style.transform = "scale(0.98)" }}
               onMouseUp={e => e.currentTarget.style.transform = "scale(1)"}
             >
-              {loading ? "Memproses..." : "Kirim Link"}
+              {loading ? "Memproses..." : "Daftar"}
             </button>
           </form>
 
@@ -166,14 +230,14 @@ export default function ResetForm() {
             color: "#888780",
             margin: 0
           }}>
-            Ingat Password ? {""}
             <a href="/login" style={{ color: "#1A1A1A", fontWeight: 500, textDecoration: "none" }}>
-              Login
+              Punya Akun ?
             </a>
           </p>
         </div>
-
+        
         </div>
+
       </div>
     </div>
   )

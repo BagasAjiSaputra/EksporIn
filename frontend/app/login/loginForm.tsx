@@ -1,108 +1,133 @@
-"use client"
-import { useState } from "react"
-import { useLogin } from "@/features/auth/auth.hook"
+"use client";
+import { useState } from "react";
+import { useLogin } from "@/features/auth/auth.hook";
 
 export default function LoginForm() {
-  const { login, loading } = useLogin()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [response, setResponse] = useState("")
-  const [isSuccess, setIsSuccess] = useState(false)
+  const { login, loading } = useLogin();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [response, setResponse] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setResponse("")
+    e.preventDefault();
+    setResponse("");
     try {
-      await login({ email, password })
-      setIsSuccess(true)
-      setResponse("Login Berhasil")
-    } catch (error: any) {
-      setIsSuccess(false)
-      setResponse(error.message || "Login gagal")
+      await login({ email, password });
+      setIsSuccess(true);
+      setResponse("Login Berhasil");
+    } catch (message: any) {
+      setIsSuccess(false);
+      setResponse(message.error || "Login gagal");
     }
   }
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "#F5F4F0",
-      fontFamily: "'DM Sans', sans-serif",
-    }}>
-      <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet" />
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#F5F4F0",
+        fontFamily: "'DM Sans', sans-serif",
+      }}
+    >
+      <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap"
+        rel="stylesheet"
+      />
 
-      <div style={{
-        width: "100%",
-        maxWidth: "400px",
-        padding: "0 1.5rem",
-      }}>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          padding: "0 1.5rem",
+        }}
+      >
         {/* Logo mark */}
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-          marginBottom: "2.5rem",
-        }}>
-          <div style={{
-            width: "36px",
-            height: "36px",
-            backgroundColor: "#1A1A1A",
-            borderRadius: "8px",
+        <div
+          style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
-          }}>
-            <div style={{
-              width: "16px",
-              height: "16px",
-              border: "2.5px solid #F5F4F0",
-              borderRadius: "3px",
-            }} />
+            gap: "10px",
+            marginBottom: "2.5rem",
+          }}
+        >
+          <div
+            style={{
+              width: "36px",
+              height: "36px",
+              backgroundColor: "#1A1A1A",
+              borderRadius: "8px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                width: "16px",
+                height: "16px",
+                border: "2.5px solid #F5F4F0",
+                borderRadius: "3px",
+              }}
+            />
           </div>
-          <span style={{
-            fontSize: "15px",
-            fontWeight: 600,
-            color: "#1A1A1A",
-            letterSpacing: "-0.3px",
-          }}>
+          <span
+            style={{
+              fontSize: "15px",
+              fontWeight: 600,
+              color: "#1A1A1A",
+              letterSpacing: "-0.3px",
+            }}
+          >
             Masuk ke akun
           </span>
         </div>
 
         {/* Card */}
-        <div style={{
-          backgroundColor: "#FFFFFF",
-          border: "1px solid #E2E1DC",
-          borderRadius: "16px",
-          padding: "2rem",
-        }}>
-          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-
+        <div
+          style={{
+            backgroundColor: "#FFFFFF",
+            border: "1px solid #E2E1DC",
+            borderRadius: "16px",
+            padding: "2rem",
+          }}
+        >
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+          >
             {/* Feedback message */}
             {response && (
-              <div style={{
-                padding: "10px 14px",
-                borderRadius: "8px",
-                fontSize: "13.5px",
-                fontWeight: 500,
-                backgroundColor: isSuccess ? "#EAF3DE" : "#FCEBEB",
-                color: isSuccess ? "#3B6D11" : "#A32D2D",
-                border: `1px solid ${isSuccess ? "#C0DD97" : "#F7C1C1"}`,
-              }}>
+              <div
+                style={{
+                  padding: "10px 14px",
+                  borderRadius: "8px",
+                  fontSize: "13.5px",
+                  fontWeight: 500,
+                  backgroundColor: isSuccess ? "#EAF3DE" : "#FCEBEB",
+                  color: isSuccess ? "#3B6D11" : "#A32D2D",
+                  border: `1px solid ${isSuccess ? "#C0DD97" : "#F7C1C1"}`,
+                }}
+              >
                 {response}
               </div>
             )}
 
             {/* Email field */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <label style={{
-                fontSize: "13px",
-                fontWeight: 500,
-                color: "#5F5E5A",
-                letterSpacing: "0.1px",
-              }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "6px" }}
+            >
+              <label
+                style={{
+                  fontSize: "13px",
+                  fontWeight: 500,
+                  color: "#5F5E5A",
+                  letterSpacing: "0.1px",
+                }}
+              >
                 Email
               </label>
               <input
@@ -121,19 +146,23 @@ export default function LoginForm() {
                   transition: "border-color 0.15s",
                   fontFamily: "inherit",
                 }}
-                onFocus={e => e.currentTarget.style.borderColor = "#888780"}
-                onBlur={e => e.currentTarget.style.borderColor = "#D3D1C7"}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "#888780")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "#D3D1C7")}
               />
             </div>
 
             {/* Password field */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <label style={{
-                fontSize: "13px",
-                fontWeight: 500,
-                color: "#5F5E5A",
-                letterSpacing: "0.1px",
-              }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "6px" }}
+            >
+              <label
+                style={{
+                  fontSize: "13px",
+                  fontWeight: 500,
+                  color: "#5F5E5A",
+                  letterSpacing: "0.1px",
+                }}
+              >
                 Password
               </label>
               <input
@@ -152,8 +181,8 @@ export default function LoginForm() {
                   transition: "border-color 0.15s",
                   fontFamily: "inherit",
                 }}
-                onFocus={e => e.currentTarget.style.borderColor = "#888780"}
-                onBlur={e => e.currentTarget.style.borderColor = "#D3D1C7"}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "#888780")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "#D3D1C7")}
               />
             </div>
 
@@ -175,29 +204,72 @@ export default function LoginForm() {
                 fontFamily: "inherit",
                 letterSpacing: "0.1px",
               }}
-              onMouseEnter={e => { if (!loading) e.currentTarget.style.backgroundColor = "#333" }}
-              onMouseLeave={e => { if (!loading) e.currentTarget.style.backgroundColor = "#1A1A1A" }}
-              onMouseDown={e => { if (!loading) e.currentTarget.style.transform = "scale(0.98)" }}
-              onMouseUp={e => e.currentTarget.style.transform = "scale(1)"}
+              onMouseEnter={(e) => {
+                if (!loading) e.currentTarget.style.backgroundColor = "#333";
+              }}
+              onMouseLeave={(e) => {
+                if (!loading) e.currentTarget.style.backgroundColor = "#1A1A1A";
+              }}
+              onMouseDown={(e) => {
+                if (!loading) e.currentTarget.style.transform = "scale(0.98)";
+              }}
+              onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
               {loading ? "Memproses..." : "Masuk"}
             </button>
           </form>
-        </div>
+          {/* Footer hint - Update Bagian Ini */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between", // Membuat satu ke kiri, satu ke kanan
+              alignItems: "center",
+              marginTop: "1.25rem",
+              padding: "0 4px", // Memberi sedikit ruang agar tidak terlalu mepet pinggir card
+            }}
+          >
+            {/* Sisi Kiri: Reset Password */}
+            <p
+              style={{
+                fontSize: "13px",
+                color: "#888780",
+                margin: 0,
+              }}
+            >
+              <a
+                href="/register"
+                style={{
+                  color: "#1A1A1A",
+                  fontWeight: 500,
+                  textDecoration: "none",
+                }}
+              >
+                Daftar Akun ?
+              </a>
+            </p>
 
-        {/* Footer hint */}
-        <p style={{
-          textAlign: "center",
-          marginTop: "1.25rem",
-          fontSize: "13px",
-          color: "#888780",
-        }}>
-          Lupa password?{" "}
-          <a href="#" style={{ color: "#1A1A1A", fontWeight: 500, textDecoration: "none" }}>
-            Reset di sini
-          </a>
-        </p>
+            {/* Sisi Kanan: Register */}
+            <p
+              style={{
+                fontSize: "13px",
+                color: "#888780",
+                margin: 0,
+              }}
+            >
+              <a
+                href="/forgot"
+                style={{
+                  color: "#1A1A1A",
+                  fontWeight: 500,
+                  textDecoration: "none",
+                }}
+              >
+                Reset Password 
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-  )
+  );
 }

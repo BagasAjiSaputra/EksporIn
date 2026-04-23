@@ -1,3 +1,5 @@
+"use server"
+
 import { NextResponse } from "next/server";
 
 export async function POST(req : Request) {
@@ -19,12 +21,6 @@ export async function POST(req : Request) {
     }
 
     const response = NextResponse.json({success : true})
-
-    // response.cookies.set("token", data.token, {
-    //     httpOnly : true,
-    //     secure : true,
-    //     path : "/",
-    // })
 
     return response
 }
