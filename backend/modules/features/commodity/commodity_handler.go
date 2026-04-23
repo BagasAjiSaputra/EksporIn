@@ -2,8 +2,9 @@ package commodity
 
 import (
 	"eksporin/modules/middleware"
-	"net/http"
+	"eksporin/modules/utils"
 	"encoding/json"
+	"net/http"
 )
 
 func CreateCommodityHandler(w http.ResponseWriter, r *http.Request) {
@@ -12,28 +13,28 @@ func CreateCommodityHandler(w http.ResponseWriter, r *http.Request) {
 
 	role, ok := r.Context().Value(middleware.UserRole).(string)
 
-	if !ok || role != "admin"{
-		http.Error(w, "Forbidden Request", http.StatusForbidden)
+	if !ok || role != "admin" {
+		utils.Error(w, "Forbidden Request", http.StatusForbidden)
 		return
 	}
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 
 	if err != nil {
-		http.Error(w, "Invalid Request", http.StatusBadRequest)
+		utils.Error(w, "Invalid Request", http.StatusBadRequest)
 		return
 	}
 
 	_, err = CreateCommodityService(req.Name, req.Category)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		utils.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	response := CreateCommodityResponse{
-		Message: "Komoditas Berhasil Ditambahkan",
-		Name: req.Name,
+		Message:  "Komoditas Berhasil Ditambahkan",
+		Name:     req.Name,
 		Category: req.Category,
 	}
 
@@ -47,27 +48,27 @@ func UpdateCommodityHandler(w http.ResponseWriter, r *http.Request) {
 	role, ok := r.Context().Value(middleware.UserRole).(string)
 
 	if !ok || role != "admin" {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		utils.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 
 	if err != nil {
-		http.Error(w, "Invalid Request", http.StatusBadRequest)
+		utils.Error(w, "Invalid Request", http.StatusBadRequest)
 		return
 	}
 
 	commodity, err := UpdateCommodityService(req.ID, req.Name, req.Category)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		utils.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	response := UpdateCommodityResponse{
-		Message: "Komoditas Berhasil Di Update",
-		Name: commodity.Name,
+		Message:  "Komoditas Berhasil Di Update",
+		Name:     commodity.Name,
 		Category: commodity.Category,
 	}
 
@@ -82,27 +83,27 @@ func DeleteCommodityHandler(w http.ResponseWriter, r *http.Request) {
 	role, ok := r.Context().Value(middleware.UserRole).(string)
 
 	if !ok || role != "admin" {
-		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		utils.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 
 	if err != nil {
-		http.Error(w, "Invalid Request", http.StatusBadRequest)
+		utils.Error(w, "Invalid Request", http.StatusBadRequest)
 		return
 	}
 
 	commodity, err := DeleteCommodityService(req.ID)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		utils.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
 	response := DeleteCommodityResponse{
-		Message: "Komoditas Dihapus",
-		Name: commodity.Name,
+		Message:  "Komoditas Dihapus",
+		Name:     commodity.Name,
 		Category: commodity.Category,
 	}
 
