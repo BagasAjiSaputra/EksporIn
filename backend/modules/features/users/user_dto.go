@@ -26,7 +26,7 @@ type LoginRequest struct {
 }
 
 type LoginResponse struct {
-	Token 		string		`json:"token"`
+	Message		string		`json:"message"`
 }
 
 type GetProfile struct {
