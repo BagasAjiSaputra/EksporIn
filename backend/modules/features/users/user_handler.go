@@ -47,12 +47,14 @@ func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		utils.Error(w, "Invalid Request", http.StatusBadRequest)
+		return
 	}
 
 	token, err := LoginUser(req.Email, req.Password)
 
 	if err != nil {
 		utils.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
 	}
 
 	http.SetCookie(w, &http.Cookie{
@@ -64,10 +66,12 @@ func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
 		SameSite: http.SameSiteLaxMode,
 	})
 
+	response := LoginResponse{
+		Message : "Login Berhasil",
+	}
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]string{
-		"message": "login success",
-	})
+	json.NewEncoder(w).Encode(response)
 }
 
 func GetProfileHander(w http.ResponseWriter, r *http.Request) {
