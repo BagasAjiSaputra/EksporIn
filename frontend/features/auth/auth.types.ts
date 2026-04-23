@@ -1,8 +1,16 @@
 export type LoginRequest = {
-    email : string,
+    email : string
     password : string
 }
 
 export type LoginResponse = {
-    token : string
+    message : string
+}
+
+export type ResetRequest = {
+    email : string
+}
+
+export type ResetResponse = {
+    message : string
 }

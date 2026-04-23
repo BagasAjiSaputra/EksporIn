@@ -1,5 +1,5 @@
-import { LoginApi } from "./auth.api";
-import { LoginRequest } from "./auth.types";
+import { LoginApi, ResetApi } from "./auth.api";
+import { LoginRequest, ResetRequest } from "./auth.types";
 
 
 export async function LoginService(data : LoginRequest) {
@@ -10,6 +10,19 @@ export async function LoginService(data : LoginRequest) {
     const result = await LoginApi({
         email : data.email,
         password : data.password
+    })
+
+    return result
+}
+
+export async function ResetService(data : ResetRequest) {
+
+    if (!data.email) {
+        throw new Error("Email harus diisi")
+    }
+
+    const result = await ResetApi({
+        email : data.email
     })
 
     return result

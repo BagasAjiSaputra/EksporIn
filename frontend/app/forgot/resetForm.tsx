@@ -1,11 +1,10 @@
 "use client"
 import { useState } from "react"
-import { useLogin } from "@/features/auth/auth.hook"
+import { useReset } from "@/features/auth/auth.hook"
 
-export default function LoginForm() {
-  const { login, loading } = useLogin()
+export default function ResetForm() {
+  const { reset, loading } = useReset()
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
   const [response, setResponse] = useState("")
   const [isSuccess, setIsSuccess] = useState(false)
 
@@ -13,12 +12,12 @@ export default function LoginForm() {
     e.preventDefault()
     setResponse("")
     try {
-      await login({ email, password })
+      await reset({ email })
       setIsSuccess(true)
-      setResponse("Login Berhasil")
+      setResponse("Link Dikirim ke Email")
     } catch (error: any) {
       setIsSuccess(false)
-      setResponse(error.message || "Login gagal")
+      setResponse(error.message || "Link Gagal Dikirim")
     }
   }
 
@@ -67,7 +66,7 @@ export default function LoginForm() {
             color: "#1A1A1A",
             letterSpacing: "-0.3px",
           }}>
-            Masuk ke akun
+            Reset Password
           </span>
         </div>
 
@@ -126,37 +125,6 @@ export default function LoginForm() {
               />
             </div>
 
-            {/* Password field */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-              <label style={{
-                fontSize: "13px",
-                fontWeight: 500,
-                color: "#5F5E5A",
-                letterSpacing: "0.1px",
-              }}>
-                Password
-              </label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={{
-                  padding: "10px 14px",
-                  fontSize: "14px",
-                  color: "#1A1A1A",
-                  backgroundColor: "#FAFAF8",
-                  border: "1px solid #D3D1C7",
-                  borderRadius: "8px",
-                  outline: "none",
-                  transition: "border-color 0.15s",
-                  fontFamily: "inherit",
-                }}
-                onFocus={e => e.currentTarget.style.borderColor = "#888780"}
-                onBlur={e => e.currentTarget.style.borderColor = "#D3D1C7"}
-              />
-            </div>
-
             {/* Submit button */}
             <button
               type="submit"
@@ -180,7 +148,7 @@ export default function LoginForm() {
               onMouseDown={e => { if (!loading) e.currentTarget.style.transform = "scale(0.98)" }}
               onMouseUp={e => e.currentTarget.style.transform = "scale(1)"}
             >
-              {loading ? "Memproses..." : "Masuk"}
+              {loading ? "Memproses..." : "Kirim Link"}
             </button>
           </form>
         </div>
@@ -192,9 +160,9 @@ export default function LoginForm() {
           fontSize: "13px",
           color: "#888780",
         }}>
-          Lupa password?{" "}
+          Ingat Password?{" "}
           <a href="#" style={{ color: "#1A1A1A", fontWeight: 500, textDecoration: "none" }}>
-            Reset di sini
+            Kembali ke Login
           </a>
         </p>
       </div>
