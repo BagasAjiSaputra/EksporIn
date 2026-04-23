@@ -3,7 +3,7 @@ package middleware
 import (
 	"eksporin/modules/utils"
 	"net/http"
-	"strings"
+	// "strings"
 	"context"
 	"github.com/google/uuid"
 )
@@ -19,20 +19,23 @@ func JWTAuth(next http.Handler) http.Handler{
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		authHeader := r.Header.Get("Authorization")
+		// authHeader := r.Header.Get("Authorization")
 
-		if authHeader == "" {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
-		}
+		// if authHeader == "" {
+		// 	http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		// 	return
+		// }
 
-		parts := strings.Split(authHeader, " ")
+		// parts := strings.Split(authHeader, " ")
 
-		if len(parts) != 2 {
-			http.Error(w, "Invalid Token Format", http.StatusBadRequest)
-		}
+		// if len(parts) != 2 {
+		// 	http.Error(w, "Invalid Token Format", http.StatusBadRequest)
+		// }
 
-		token := parts[1]
+		// token := parts[1]
+		cookie, err := r.Cookie("token")
+
+		token := cookie.Value
 
 		claims, err := utils.ParseToken(token)
 

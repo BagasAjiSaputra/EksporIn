@@ -56,12 +56,20 @@ func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 	}
 
-	res := LoginResponse{
-		Token : token,
-	}
+	http.SetCookie(w, &http.Cookie{
+		Name : "token",
+		Value : token,
+		Path : "/",
+		HttpOnly: true,
+		Secure: false, // https true
+		SameSite: http.SameSiteLaxMode,
+
+	})
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(res)
+	json.NewEncoder(w).Encode(map[string]string{
+		"message": "login success",
+	})
 }
 
 func GetProfileHander(w http.ResponseWriter, r *http.Request) {
