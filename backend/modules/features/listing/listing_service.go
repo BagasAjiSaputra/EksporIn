@@ -84,9 +84,9 @@ func GetAllListingService() ([]models.Listing, error) {
 	return listing, nil
 }
 
-func GetListingByIDService(id uuid.UUID) (*models.Listing, error) {
+func GetListingByIDService(id uuid.UUID) ([]models.Listing, error) {
 
-	listing, err := GetListingByID(id)
+	var listing, err = GetListingByID(id)
 
 	if err != nil {
 		return nil, errors.New("Gagal mengambil data listing User")
