@@ -88,24 +88,57 @@ func GetAllListingHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// func GetListingByIDHandler(w http.ResponseWriter, r *http.Request) {
+func GetListingByIDHandler(w http.ResponseWriter, r *http.Request) {
 
-// 	var req GetListingIDRequest
+	// var req GetListingIDRequest
 
-// 	err := json.NewDecoder(r.Body).Decode(&req)
+	// err := json.NewDecoder(r.Body).Decode(&req)
 
-// 	if err != nil {
-// 		utils.Error(w, "Invalid Request", http.StatusBadRequest)
-// 		return
-// 	}
+	// if err != nil {
+	// 	utils.Error(w, "Invalid Request", http.StatusBadRequest)
+	// 	return
+	// }
 
-// 	listings, err = GetListingByIDService(req.ID)
+	userID, ok := r.Context().Value(middleware.UserIDKey).(uuid.UUID)
 
-// 	if err != nil {
-// 		utils.Error(w, "Invalid Request", http.StatusBadRequest)
-// 		return
-// 	}
+	if !ok {
+		utils.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 
-// 	var
 
-// }
+	listings, err := GetListingByIDService(userID)
+
+	if err != nil {
+		utils.Error(w, "Listing Tidak Ditemukan", http.StatusBadRequest)
+		return
+	}
+
+	var response []GetListingID
+
+	for _, listing := range listings {
+		response = append(response, GetListingID{
+		
+			ID:            listing.ID,
+		UserID:        listing.UserID,
+		CommodityID:   listing.CommodityID,
+		CompanyID:     listing.CompanyID,
+		Title:         listing.Title,
+		Description:   listing.Description,
+		MinVolume:     listing.MinVolume,
+		CurrentVolume: listing.CurrentVolume,
+		Quality:       listing.Quality,
+		PriceBuy:      listing.PriceBuy,
+		Location:      listing.Location,
+		Address:       listing.Address,
+		CreatedAt:     listing.CreatedAt,
+		UpdatedAt:     listing.UpdatedAt,
+		ExpiredAt:     listing.ExpiredAt,
+		Status:        string(listing.Status),
+		})
+	}
+
+	w.Header().Set("Content-Type", "Application/json")
+	json.NewEncoder(w).Encode(response)
+
+}

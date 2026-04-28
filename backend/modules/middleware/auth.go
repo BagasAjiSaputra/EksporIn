@@ -38,6 +38,11 @@ func JWTAuth(next http.Handler) http.Handler {
 		// token := parts[1]
 		cookie, err := r.Cookie("token")
 
+		if err != nil {
+			utils.Error(w, "Unauthorized", http.StatusUnauthorized)
+			return
+		}
+
 		token := cookie.Value
 
 		claims, err := utils.ParseToken(token)
