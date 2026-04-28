@@ -12,6 +12,8 @@ import (
 
 	// "eksporin/modules/middleware"
 	"net/http"
+	"os"
+
 )
 
 func Router() {
@@ -45,6 +47,14 @@ func Router() {
 			http.StripPrefix(
 				"/api",middleware.JWTAuth(protectedMux),
 			),
+		),
+	)
+
+	uploadPath := os.Getenv("UPLOAD_PATH")
+
+	root.Handle("/uploads/",
+		http.StripPrefix("/uploads/", 
+			middleware.Logger(http.FileServer(http.Dir(uploadPath))),
 		),
 	)
 
