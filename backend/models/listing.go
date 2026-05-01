@@ -22,6 +22,7 @@ type Listing struct {
 	CommodityID uuid.UUID `gorm:"type:uuid;"`
 	CompanyID   uuid.UUID `gorm:"type:uuid;"`
 
+	ImageUrl	string		`gorm:"type:varchar(1000);"`
 	Title         string        `gorm:"type:varchar(150);not null"`
 	Description   string        `gorm:"type:varchar(3000);not null"`
 	MinVolume     float64       `gorm:"type:decimal(15,2);not null"`

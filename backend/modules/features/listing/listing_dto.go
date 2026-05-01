@@ -12,6 +12,7 @@ type CreateListingRequest struct {
 	CommodityID uuid.UUID `json:"commodity_id"`
 	CompanyID   uuid.UUID `json:"company_id"`
 
+	ImageUrl	string		`json:"image_url"`
 	Title         string    `json:"title"`
 	Description   string    `json:"description"`
 	MinVolume     float64   `json:"min_volume"`
@@ -36,6 +37,7 @@ type AllListingData struct {
 	CommodityID uuid.UUID `json:"commodity_id"`
 	CompanyID   uuid.UUID `json:"company_id"`
 
+	ImageUrl	string		`json:"image_url"`
 	Title         string        `json:"title"`
 	Description   string        `json:"description"`
 	MinVolume     float64       `json:"min_volume"`
@@ -60,6 +62,7 @@ type GetListingID struct {
 	CommodityID uuid.UUID `json:"commodity_id"`
 	CompanyID   uuid.UUID `json:"company_id"`
 
+	ImageUrl	string		`json:"image_url"`
 	Title         string        `json:"title"`
 	Description   string        `json:"description"`
 	MinVolume     float64       `json:"min_volume"`
