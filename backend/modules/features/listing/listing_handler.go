@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
-	// "fmt"
 	"strconv"
 	"os"
 	"io"
@@ -134,6 +133,7 @@ func GetAllListingHandler(w http.ResponseWriter, r *http.Request) {
 			UserID:        listing.UserID,
 			CommodityID:   listing.CommodityID,
 			CompanyID:     listing.CompanyID,
+			ImageUrl: listing.ImageUrl,
 			Title:         listing.Title,
 			Description:   listing.Description,
 			MinVolume:     listing.MinVolume,
@@ -188,6 +188,7 @@ func GetListingByIDHandler(w http.ResponseWriter, r *http.Request) {
 		UserID:        listing.UserID,
 		CommodityID:   listing.CommodityID,
 		CompanyID:     listing.CompanyID,
+		ImageUrl: listing.ImageUrl,
 		Title:         listing.Title,
 		Description:   listing.Description,
 		MinVolume:     listing.MinVolume,
