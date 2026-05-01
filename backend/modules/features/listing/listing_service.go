@@ -52,6 +52,7 @@ func CreateListingService(input *CreateListingRequest) error {
 		CommodityID: input.CommodityID,
 		CompanyID: input.CompanyID,
 
+		ImageUrl: input.ImageUrl,
 		Title: input.Title,
 		Description: input.Description,
 		MinVolume: input.MinVolume,

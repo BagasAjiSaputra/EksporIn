@@ -8,13 +8,17 @@ import (
 
 	"github.com/google/uuid"
 	// "fmt"
+	"strconv"
+	"os"
+	"io"
+	"path/filepath"
 )
 
 func CreateListingHandler(w http.ResponseWriter, r *http.Request) {
 
-	var req CreateListingRequest
 
-	err := json.NewDecoder(r.Body).Decode(&req)
+	// err := json.NewDecoder(r.Body).Decode(&req)
+	err := r.ParseMultipartForm( 10 << 20)
 
 	if err != nil {
 		utils.Error(w, "Invalid Request", http.StatusBadRequest)
@@ -35,7 +39,68 @@ func CreateListingHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var req CreateListingRequest
+
+	commodityIDStr := r.FormValue("commodity_id")
+	commodityID, err := uuid.Parse(commodityIDStr)
+	req.CommodityID = commodityID
+
+	companyIDStr := r.FormValue("company_id")
+	companyID, _ := uuid.Parse(companyIDStr)
+	req.CompanyID = companyID
+
+	req.Title = r.FormValue("title")
+	req.Description = r.FormValue("description")
+	req.Location = r.FormValue("location")
+	req.Address = r.FormValue("address")
+
+	minVolumeStr := r.FormValue("min_volume")
+	minVolume, err := strconv.ParseFloat(minVolumeStr, 64)
+	if err != nil {
+		utils.Error(w, "Min volume tidak valid", http.StatusBadRequest)
+		return
+	}
+
+	priceBuy, err := strconv.ParseFloat(r.FormValue("price_buy"), 64)
+	if err != nil {
+		utils.Error(w, "Harga tidak valid", http.StatusBadRequest)
+		return
+	}	
+
+	req.MinVolume = minVolume
+	req.PriceBuy = priceBuy
 	req.UserID = userID
+
+
+	imageUrl := ""
+
+	file, header, err := r.FormFile("image")
+	if err == nil {
+		defer file.Close()
+
+		// ext file
+		ext := filepath.Ext(header.Filename)
+
+		filename := uuid.New().String() + ext
+		path := "./storage/uploads/" + filename
+
+		dst, err := os.Create(path)
+		if err != nil {
+			utils.Error(w, "Gagal simpan file", http.StatusInternalServerError)
+			return
+		}
+		defer dst.Close()
+
+		_, err = io.Copy(dst, file)
+		if err != nil {
+			utils.Error(w, "Gagal write file", http.StatusInternalServerError)
+			return
+		}
+
+		imageUrl = "/uploads/" + filename
+	}
+
+	req.ImageUrl = imageUrl
 
 	err = CreateListingService(&req)
 
