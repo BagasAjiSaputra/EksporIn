@@ -1,0 +1,469 @@
+{
+	"info": {
+		"_postman_id": "352802e2-8a37-49d6-bdbb-f390a7778ff7",
+		"name": "Eksporin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "51801319",
+		"_collection_link": "https://bagaspdci555-5157209.postman.co/workspace/Bagas-Aji-Saputra's-Workspace~2ca07c30-efbc-4287-855f-cb6e46b6ea48/collection/51801319-352802e2-8a37-49d6-bdbb-f390a7778ff7?action=share&source=collection_link&creator=51801319"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"bagas199s8gmail.com\",\n    \"password\" : \"asdfasdf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"pm.environment.set(\"token\", response.token);"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\n//     \"email\" : \"bagas@gmail.com\",\n//     \"password\" : \"asdfasdf\"\n// }\n\n// {\n//     \"email\" : \"bagas159@gmail.com\",\n//     \"password\" : \"bagash123\"\n// }\n\n{\n    \"email\" : \"dewi@gmail.com\",\n    \"password\" : \"asdfasdfg\"\n}\n\n// {\n//     \"email\" : \"bagas@gmail.com\",\n//     \"password\" : \"asdfasdf\"\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Bagasht\",\n    \"email\": \"bagas199s8gmail.com\",\n    \"password\" : \"asdfasdf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/profile",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Verified",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/verified",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"verified"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Token",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Approve Verified",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Register Company",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\" : \"DEWIPORTS\",\n    \"phone\" : \"+623875873486\",\n    \"address\" : \"Malangnese\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/company",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Company",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\" : \"DEWIPORTS\",\n    \"phone\" : \"+623875873486\",\n    \"address\" : \"Malangnese\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/company",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"company"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Commodity",
+			"item": [
+				{
+					"name": "Create Commodity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Briket\",\n    \"category\" : \"Energy\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/commodity",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"commodity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Commodity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\" : \"71395990-2484-4a63-8d09-e68074a33398\",\n    \"name\" : \"Jagung\",\n    \"category\": \"Pertanian\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/commodity",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"commodity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Commodity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\" : \"71395990-2484-4a63-8d09-e68074a33398\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/commodity",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"commodity"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listing",
+			"item": [
+				{
+					"name": "Create Listing",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"commodity_id\" : \"74672112-2e5b-43de-8f8b-5dccc5ec9b39\",\n    \"company_id\" : \"b33b7fb2-7373-48fd-ba72-408673c18855\",\n    \"title\" : \"Jagonk\",\n    \"description\" : \"Jagonks\",\n    \"min_volume\" : 500.5,\n    \"quality\" : \"Kekeringan 50%\",\n    \"price_buy\" : 12000,\n    \"location\" : \"http.Googlemaps\",\n    \"address\" : \"jalan peterongan jkt\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/listing",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"listing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Listing",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"commodity_id\" : \"74672112-2e5b-43de-8f8b-5dccc5ec9b39\",\n    \"company_id\" : \"b33b7fb2-7373-48fd-ba72-408673c18855\",\n    \"title\" : \"Jagonk\",\n    \"description\" : \"Jagonks\",\n    \"min_volume\" : 500.5,\n    \"quality\" : \"Kekeringan 50%\",\n    \"price_buy\" : 12000,\n    \"location\" : \"http.Googlemaps\",\n    \"address\" : \"jalan peterongan jkt\"\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/listing",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"listing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Listing By ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Next JS Testing",
+			"item": [
+				{
+					"name": "Get All Listing",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
