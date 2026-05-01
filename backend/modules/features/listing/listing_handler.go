@@ -9,8 +9,14 @@ import (
 	"github.com/google/uuid"
 	"strconv"
 	"os"
-	"io"
-	"path/filepath"
+	// "io"
+	// "path/filepath"
+
+	"image"
+	"image/jpeg"
+	_ "image/png"
+	_ "image/jpeg"
+	"github.com/nfnt/resize"
 )
 
 func CreateListingHandler(w http.ResponseWriter, r *http.Request) {
@@ -73,30 +79,43 @@ func CreateListingHandler(w http.ResponseWriter, r *http.Request) {
 
 	imageUrl := ""
 
-	file, header, err := r.FormFile("image")
+	file, _, err := r.FormFile("image")
 	if err == nil {
 		defer file.Close()
 
-		// ext file
-		ext := filepath.Ext(header.Filename)
+		// Decode image
+		img, format, err := image.Decode(file)
+		if err != nil {
+			utils.Error(w, "Format gambar tidak valid", http.StatusBadRequest)
+			return
+		}
 
-		filename := uuid.New().String() + ext
+		// Resize (max width 800px)
+		resized := resize.Resize(800, 0, img, resize.Lanczos3)
+
+		// Generate filename
+		filename := uuid.New().String() + ".jpg"
 		path := "./storage/uploads/" + filename
 
-		dst, err := os.Create(path)
+		out, err := os.Create(path)
 		if err != nil {
 			utils.Error(w, "Gagal simpan file", http.StatusInternalServerError)
 			return
 		}
-		defer dst.Close()
+		defer out.Close()
 
-		_, err = io.Copy(dst, file)
+		// Compress JPEG (quality 75 = optimal)
+		err = jpeg.Encode(out, resized, &jpeg.Options{
+			Quality: 100,
+		})
 		if err != nil {
-			utils.Error(w, "Gagal write file", http.StatusInternalServerError)
+			utils.Error(w, "Gagal encode gambar", http.StatusInternalServerError)
 			return
 		}
 
 		imageUrl = "/uploads/" + filename
+
+		_ = format 
 	}
 
 	req.ImageUrl = imageUrl
