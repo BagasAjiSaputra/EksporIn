@@ -9,6 +9,7 @@ import {
   Users,
   Activity,
 } from "lucide-react"
+import {RoleVerifyButton, StatusBadge, StatusIcon, VerifyStatus} from "@/components/form/role_verify"
 
 const stats = [
   { label: "Total Users",  value: "4,291", change: "+12% this month", up: true,  Icon: Users },
@@ -26,7 +27,12 @@ const activity = [
 
 export default async function DashboardPage() {
   const profile = await GetProfile()
-  const isVerified = profile.is_verified === "verified"
+
+    const status: VerifyStatus =
+    profile.is_verified === "verified" ? "verified"
+    : profile.is_verified === "pending" ? "pending"
+    : "unverified"
+
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
@@ -64,27 +70,26 @@ export default async function DashboardPage() {
             </span>
           </div>
 
-          {/* Status */}
-          <div className="flex items-center justify-between py-2.5 gap-4 flex-wrap">
+                    {/* Status + Verify button */}
+          <div className="flex items-center justify-between py-2.5 gap-3 flex-wrap">
             <span className="flex items-center gap-1.5 text-xs text-neutral-400 font-medium">
-              {isVerified ? <ShieldCheck size={12} /> : <ShieldAlert size={12} />}
+              <StatusIcon status={status} />
               Status
             </span>
-            {isVerified ? (
-              <span className="inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                Terverifikasi
-              </span>
-            ) : (
-              <span className="inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full bg-orange-50 text-orange-600 border border-orange-200">
-                Belum Diverifikasi
-              </span>
-            )}
+ 
+            <div className="flex items-center gap-2 flex-wrap">
+              <StatusBadge status={status} />
+              <RoleVerifyButton status={status} />
+            </div>
+
           </div>
+
+
         </div>
       </div>
 
       {/* ── Stats grid ── */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {stats.map(({ label, value, change, up, Icon }) => (
           <div key={label} className="bg-white border border-neutral-200 rounded-xl shadow-sm p-4 sm:p-5">
             <div className="flex items-center justify-between mb-3">
@@ -95,10 +100,10 @@ export default async function DashboardPage() {
             <p className={`text-[11.5px] font-medium ${up ? "text-emerald-600" : "text-red-500"}`}>{change}</p>
           </div>
         ))}
-      </div>
+      </div> */}
 
       {/* ── Recent activity ── */}
-      <div className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden">
+      {/* <div className="bg-white border border-neutral-200 rounded-xl shadow-sm overflow-hidden">
         <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
           <h2 className="text-sm font-semibold text-neutral-800">Recent Activity</h2>
           <button className="text-[12.5px] font-medium text-indigo-500 hover:text-indigo-700 transition-colors">
@@ -114,7 +119,7 @@ export default async function DashboardPage() {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
 
     </div>
   )
