@@ -2,8 +2,8 @@ import { getListings, Listing } from "@/features/listing/get_all_listing"
 import ListingCatalogue from "@/components/listing/listing_catalogue"
 
 export const metadata = {
-  title: "Catalogue — Marketplace",
-  description: "Browse available listings",
+  title: "EksporIn Aja",
+  description: "Web Platform Ekspor Komoditas",
 }
 
 export default async function CataloguePage() {
