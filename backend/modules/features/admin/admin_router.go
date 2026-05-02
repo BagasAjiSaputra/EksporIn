@@ -1,17 +1,18 @@
 package admin
 
 import (
+	"eksporin/modules/utils"
 	"net/http"
 )
 
 func AdminRouter(w http.ResponseWriter, r *http.Request) {
 
-	switch r.Method{
-		case http.MethodGet:
-			GetAllUserHandler(w, r)
+	switch r.Method {
+	case http.MethodGet:
+		GetAllUserHandler(w, r)
 
-		default:
-			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+	default:
+		utils.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
 
 }

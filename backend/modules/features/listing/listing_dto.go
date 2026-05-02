@@ -12,6 +12,7 @@ type CreateListingRequest struct {
 	CommodityID uuid.UUID `json:"commodity_id"`
 	CompanyID   uuid.UUID `json:"company_id"`
 
+	ImageUrl	string		`json:"image_url"`
 	Title         string    `json:"title"`
 	Description   string    `json:"description"`
 	MinVolume     float64   `json:"min_volume"`
@@ -36,6 +37,7 @@ type AllListingData struct {
 	CommodityID uuid.UUID `json:"commodity_id"`
 	CompanyID   uuid.UUID `json:"company_id"`
 
+	ImageUrl	string		`json:"image_url"`
 	Title         string        `json:"title"`
 	Description   string        `json:"description"`
 	MinVolume     float64       `json:"min_volume"`
@@ -52,4 +54,25 @@ type AllListingData struct {
 
 type GetListingIDRequest struct {
 	ID uuid.UUID	`json:"id"`
+}
+
+type GetListingID struct {
+	ID          uuid.UUID `json:"id"`
+	UserID      uuid.UUID `json:"user_id"`
+	CommodityID uuid.UUID `json:"commodity_id"`
+	CompanyID   uuid.UUID `json:"company_id"`
+
+	ImageUrl	string		`json:"image_url"`
+	Title         string        `json:"title"`
+	Description   string        `json:"description"`
+	MinVolume     float64       `json:"min_volume"`
+	CurrentVolume float64       `json:"current_volume"`
+	Quality       string        `json:"quality"`
+	PriceBuy      float64       `json:"price_buy"`
+	Location      string        `json:"location"`
+	Address       string        `json:"address"`
+	CreatedAt     time.Time     `json:"created_at"`
+	UpdatedAt     time.Time     `json:"updated_at"`
+	ExpiredAt     time.Time     `json:"expired_at"`
+	Status        string 		`json:"status"`
 }

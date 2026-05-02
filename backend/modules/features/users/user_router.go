@@ -1,16 +1,29 @@
 package users
 
-import "net/http"
+import (
+	"eksporin/modules/utils"
+	"net/http"
+)
 
 func ProfileRouter(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
 		GetProfileHander(w, r)
-	
+
 	case http.MethodPut:
 		UpdateProfileHandler(w, r)
 
 	default:
-		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		utils.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+	}
+}
+
+func LogoutRouter(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodPost:
+		Logout(w, r)
+
+	default:
+		utils.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
 }

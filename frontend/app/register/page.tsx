@@ -1,6 +1,6 @@
-import { login } from "@/features/auth/login"
+import { register } from "@/features/auth/register"
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <main className="min-h-screen bg-stone-50 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
@@ -19,7 +19,22 @@ export default function LoginPage() {
 
         {/* Card */}
         <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm">
-          <form action={login} className="space-y-4">
+          <form action={register} className="space-y-4">
+
+            {/* Name */}
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="block text-xs font-medium text-stone-500 uppercase tracking-wide">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="name"
+                placeholder="yourname"
+                required
+                className="w-full h-11 px-3.5 rounded-xl border border-stone-200 bg-stone-50 text-sm text-stone-900 placeholder:text-stone-300 outline-none transition-all focus:border-stone-400 focus:bg-white focus:ring-2 focus:ring-stone-100"
+              />
+            </div>
 
             {/* Email */}
             <div className="space-y-1.5">
@@ -30,7 +45,7 @@ export default function LoginPage() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder="you@gmail.com"
                 required
                 className="w-full h-11 px-3.5 rounded-xl border border-stone-200 bg-stone-50 text-sm text-stone-900 placeholder:text-stone-300 outline-none transition-all focus:border-stone-400 focus:bg-white focus:ring-2 focus:ring-stone-100"
               />
@@ -69,9 +84,9 @@ export default function LoginPage() {
 
         {/* Footer */}
         <p className="text-center text-xs text-stone-400 mt-5">
-          Don't have an account?{" "}
+          Have an account?{" "}
           <a href="/register" className="text-emerald-600 font-medium hover:text-emerald-700 transition-colors">
-            Register
+            Login
           </a>
         </p>
 

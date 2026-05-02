@@ -19,15 +19,15 @@ func GetAllListing() ([]models.Listing, error) {
 	return listing, result
 }
 
-func GetListingByID(id uuid.UUID) (*models.Listing, error) {
+func GetListingByID(id uuid.UUID) ([]models.Listing, error) {
 
-	var listing models.Listing
+	var listing []models.Listing
 
-	result := config.DB.Where("id = ?", id).First(&listing)
+	result := config.DB.Where("user_id = ?", id).Find(&listing)
 
 	if result.Error != nil {
 		return nil, result.Error
 	}
 
-	return &listing, nil
+	return listing, nil
 }
