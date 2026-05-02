@@ -34,6 +34,7 @@ func Router() {
 	protectedMux.HandleFunc("/verified", users.UpdateRequestVerified)
 	protectedMux.HandleFunc("/company", company.CompanyRouter)
 	protectedMux.HandleFunc("/manage-listing", listing.ListingRouter)
+	protectedMux.HandleFunc("/logout", users.LogoutRouter)
 
 	// ADMIN
 	protectedMux.HandleFunc("/commodity", commodity.CommodityRouter)

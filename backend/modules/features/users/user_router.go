@@ -17,3 +17,13 @@ func ProfileRouter(w http.ResponseWriter, r *http.Request) {
 		utils.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
 }
+
+func LogoutRouter(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case http.MethodPost:
+		Logout(w, r)
+
+	default:
+		utils.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+	}
+}
