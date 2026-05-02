@@ -75,3 +75,7 @@ type ResetPasswordRequest struct {
 type ResetPasswordResponse struct {
 	Message		string		`json:"message"`
 }
+
+type Response struct {
+	Message string `json:"message"`
+}
