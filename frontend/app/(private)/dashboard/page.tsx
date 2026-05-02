@@ -1,6 +1,3 @@
-// app/(private)/dashboard/page.tsx
-// ✅ Server Component — no "use client", no styled-jsx
-
 import { GetProfile } from "@/features/auth/get_profile"
 import {
   User,
