@@ -1,4 +1,4 @@
-import { GetProfile } from "@/features/auth/get_profile"
+import { GetProfile } from "@/features/auth/get_profile";
 import {
   User,
   Mail,
@@ -8,35 +8,65 @@ import {
   TrendingUp,
   Users,
   Activity,
-} from "lucide-react"
-import {RoleVerifyButton, StatusBadge, StatusIcon, VerifyStatus} from "@/components/form/role_verify"
+} from "lucide-react";
+import {
+  RoleVerifyButton,
+  StatusBadge,
+  StatusIcon,
+  VerifyStatus,
+} from "@/components/form/role_verify";
+import { UpdateProfileModal } from "@/components/form/update_account";
 
 const stats = [
-  { label: "Total Users",  value: "4,291", change: "+12% this month", up: true,  Icon: Users },
-  { label: "Active Now",   value: "138",   change: "+5% this month",  up: true,  Icon: Activity },
-  { label: "Reports",      value: "23",    change: "-2% this month",  up: false, Icon: Briefcase },
-  { label: "Growth",       value: "18.4%", change: "+3% this month",  up: true,  Icon: TrendingUp },
-]
+  {
+    label: "Total Users",
+    value: "4,291",
+    change: "+12% this month",
+    up: true,
+    Icon: Users,
+  },
+  {
+    label: "Active Now",
+    value: "138",
+    change: "+5% this month",
+    up: true,
+    Icon: Activity,
+  },
+  {
+    label: "Reports",
+    value: "23",
+    change: "-2% this month",
+    up: false,
+    Icon: Briefcase,
+  },
+  {
+    label: "Growth",
+    value: "18.4%",
+    change: "+3% this month",
+    up: true,
+    Icon: TrendingUp,
+  },
+];
 
 const activity = [
-  { label: "Profile updated",       time: "2 min ago",  color: "bg-indigo-500" },
-  { label: "New report generated",  time: "1 hr ago",   color: "bg-emerald-500" },
-  { label: "User role changed",     time: "3 hr ago",   color: "bg-amber-400" },
-  { label: "Login from new device", time: "Yesterday",  color: "bg-red-400" },
-]
+  { label: "Profile updated", time: "2 min ago", color: "bg-indigo-500" },
+  { label: "New report generated", time: "1 hr ago", color: "bg-emerald-500" },
+  { label: "User role changed", time: "3 hr ago", color: "bg-amber-400" },
+  { label: "Login from new device", time: "Yesterday", color: "bg-red-400" },
+];
 
 export default async function DashboardPage() {
-  const profile = await GetProfile()
+  const profile = await GetProfile();
 
-    const status: VerifyStatus =
-    profile.is_verified === "verified" ? "verified"
-    : profile.is_verified === "pending" ? "pending"
-    : "unverified"
-
+  const status: VerifyStatus =
+    profile.is_verified === "verified"
+      ? "verified"
+      : profile.is_verified === "pending"
+        ? "pending"
+        : "unverified";
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-
       {/* ── Welcome ── */}
       <div>
         <p className="text-sm text-neutral-400 mb-1">Good day 👋</p>
@@ -57,7 +87,9 @@ export default async function DashboardPage() {
             <span className="flex items-center gap-1.5 text-xs text-neutral-400 font-medium">
               <Mail size={12} /> Email
             </span>
-            <span className="text-sm text-neutral-800 font-medium">{profile.email}</span>
+            <span className="text-sm text-neutral-800 font-medium">
+              {profile.email}
+            </span>
           </div>
 
           {/* Role */}
@@ -70,21 +102,26 @@ export default async function DashboardPage() {
             </span>
           </div>
 
-                    {/* Status + Verify button */}
+          {/* Status + Verify button */}
           <div className="flex items-center justify-between py-2.5 gap-3 flex-wrap">
             <span className="flex items-center gap-1.5 text-xs text-neutral-400 font-medium">
               <StatusIcon status={status} />
               Status
             </span>
- 
+
             <div className="flex items-center gap-2 flex-wrap">
               <StatusBadge status={status} />
               <RoleVerifyButton status={status} />
             </div>
-
           </div>
 
-
+          {/* Modal */}
+          <div className="flex items-center justify-end py-2.5 gap-3 flex-wrap">
+            <UpdateProfileModal
+            defaultName={profile.name}
+            defaultEmail={profile.email}
+          />
+          </div>
         </div>
       </div>
 
@@ -120,7 +157,6 @@ export default async function DashboardPage() {
           ))}
         </ul>
       </div> */}
-
     </div>
-  )
+  );
 }
