@@ -57,9 +57,6 @@ export default function RegisterPage() {
                 <label htmlFor="password" className="block text-xs font-medium text-stone-500 uppercase tracking-wide">
                   Password
                 </label>
-                <a href="/forgot-password" className="text-xs text-emerald-600 hover:text-emerald-700 transition-colors">
-                  Forgot password?
-                </a>
               </div>
               <input
                 id="password"
@@ -85,7 +82,7 @@ export default function RegisterPage() {
         {/* Footer */}
         <p className="text-center text-xs text-stone-400 mt-5">
           Have an account?{" "}
-          <a href="/register" className="text-emerald-600 font-medium hover:text-emerald-700 transition-colors">
+          <a href="/login" className="text-emerald-600 font-medium hover:text-emerald-700 transition-colors">
             Login
           </a>
         </p>

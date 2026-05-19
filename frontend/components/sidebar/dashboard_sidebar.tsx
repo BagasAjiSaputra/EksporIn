@@ -14,6 +14,7 @@ import {
   X,
   ChevronRight,
 } from "lucide-react"
+import { Logout } from "@/features/auth/logout"
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
@@ -41,7 +42,7 @@ export function DashboardSidebar() {
       {/* ── Mobile menu toggle (topbar) ─────────────────────────── */}
       <button
         onClick={() => setOpen(true)}
-        className="md:hidden fixed top-0 left-0 z-[201] flex items-center justify-center w-14 h-14 text-neutral-400 hover:text-white transition-colors"
+        className="md:hidden fixed top-0 left-0 z-[200] flex items-center justify-center w-14 h-14 text-neutral-400 hover:text-white transition-colors"
         aria-label="Open menu"
       >
         <Menu size={20} />
@@ -59,7 +60,7 @@ export function DashboardSidebar() {
       {/* ── Sidebar ─────────────────────────────────────────────── */}
       <aside
         className={[
-          "fixed inset-y-0 left-0 z-[200] flex flex-col bg-[#0f0f0f] transition-transform duration-250 ease-in-out",
+          "fixed inset-y-0 left-0 z-[201] flex flex-col bg-[#0f0f0f] transition-transform duration-250 ease-in-out",
           "w-[240px] lg:w-[240px] md:w-[200px]",
           // Desktop: always visible
           "md:translate-x-0",
@@ -112,7 +113,7 @@ export function DashboardSidebar() {
 
         {/* Footer */}
         <div className="px-3 py-3 border-t border-white/[0.06]">
-          <button className="flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg text-[13.5px] text-neutral-400 hover:bg-white/[0.05] hover:text-red-400 transition-all duration-150 cursor-pointer">
+          <button onClick={Logout} className="flex items-center gap-2.5 w-full px-3 py-2.5 rounded-lg text-[13.5px] text-neutral-400 hover:bg-white/[0.05] hover:text-red-400 transition-all duration-150 cursor-pointer">
             <LogOut size={16} strokeWidth={1.8} />
             <span>Log Out</span>
           </button>

@@ -1,13 +1,24 @@
 // app/(private)/dashboard/layout.tsx
-// ✅ Server Component — no "use client", no styled-jsx
+// Server Component — no "use client", no styled-jsx
 
-import { DashboardSidebar, TopBar } from "@/components/sidebar/dashboard_sidebar"
+import {
+  DashboardSidebar,
+  TopBar,
+} from "@/components/sidebar/dashboard_sidebar";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  if (!token) {
+    redirect("/login");
+  }
   return (
     <div className="flex min-h-screen bg-neutral-100 antialiased">
       {/* Sidebar — Client Component (handles all interactivity) */}
@@ -19,10 +30,8 @@ export default function DashboardLayout({
         <TopBar />
 
         {/* Page slot */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-7">
-          {children}
-        </main>
+        <main className="flex-1 p-4 sm:p-6 lg:p-7">{children}</main>
       </div>
     </div>
-  )
+  );
 }
