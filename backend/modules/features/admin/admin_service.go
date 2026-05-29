@@ -4,6 +4,7 @@ import (
 	"eksporin/models"
 	// "eksporin/modules/utils"
 	"errors"
+
 	"github.com/google/uuid"
 )
 
@@ -35,11 +36,21 @@ func AcceptVerifiedService(userID uuid.UUID, approve bool) (*models.User, error)
 }
 
 func GetAllUserService() ([]models.User, error) {
-	
+
 	users, err := GetAllUser()
 
 	if err != nil {
 		return nil, errors.New("Gagal mengambil data user")
+	}
+
+	return users, nil
+}
+
+func GetUsersByRoleService(role string) ([]models.User, error) {
+	users, err := GetUsersByRole(role)
+
+	if err != nil {
+		return nil, errors.New("Gagal mengambil data user berdasarkan role")
 	}
 
 	return users, nil

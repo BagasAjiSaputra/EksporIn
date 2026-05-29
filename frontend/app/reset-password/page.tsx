@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation"
 import { resetPassword } from "@/features/auth/reset_password"
+import ResetPasswordForm from "./form"
 
 export default async function Page({
   searchParams,
@@ -13,13 +14,5 @@ export default async function Page({
     redirect("/login")
   }
 
-  return (
-    <form action={resetPassword}>
-      <input type="hidden" name="token" value={token} />
-
-      <input name="new_password" type="password" required />
-
-      <button type="submit">Reset</button>
-    </form>
-  )
+  return <ResetPasswordForm token={token} />
 }

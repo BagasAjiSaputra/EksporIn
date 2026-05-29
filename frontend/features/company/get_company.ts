@@ -3,22 +3,22 @@
 import { cookies } from "next/headers"
 import { BASE_URL } from "../global/url"
 
-export async function VerifyRole() {
+export async function GetCompany() {
   const cookieStore = await cookies()
   const token = cookieStore.get("token")?.value
 
-  const res = await fetch(`${BASE_URL}/api/verified`, {
-    method: "POST",
+  const res = await fetch(`${BASE_URL}/api/company`, {
+    method: "GET",
     headers: {
-      Cookie : `token=${token}`
+      Cookie: `token=${encodeURIComponent(token!)}`,
     },
+    cache: "no-store",
   })
 
-  const data = await res.json()
-
   if (!res.ok) {
-    return { error: "Gagal Registrasi Akun" }
+    return null
   }
 
+  const data = await res.json()
   return data
 }

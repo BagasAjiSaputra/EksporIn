@@ -1,6 +1,14 @@
+"use client"
 import { login } from "@/features/auth/login"
 
 export default function LoginPage() {
+  async function clientLogin(formData: FormData) {
+    const res = await login(formData)
+    if (res?.error) {
+      alert(res.error)
+    }
+  }
+
   return (
     <main className="min-h-screen bg-stone-50 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
@@ -19,7 +27,7 @@ export default function LoginPage() {
 
         {/* Card */}
         <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm">
-          <form action={login} className="space-y-4">
+          <form action={clientLogin} className="space-y-4">
 
             {/* Email */}
             <div className="space-y-1.5">

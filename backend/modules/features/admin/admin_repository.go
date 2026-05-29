@@ -3,10 +3,11 @@ package admin
 import (
 	"eksporin/config"
 	"eksporin/models"
+
 	"github.com/google/uuid"
 )
 
-func VerifyUser(user *models.User) error{
+func VerifyUser(user *models.User) error {
 	return config.DB.Create(user).Error
 }
 
@@ -30,6 +31,14 @@ func GetAllUser() ([]models.User, error) {
 	var user []models.User
 
 	result := config.DB.Find(&user).Error
+
+	return user, result
+}
+
+func GetUsersByRole(role string) ([]models.User, error) {
+	var user []models.User
+
+	result := config.DB.Where("role = ?", role).Find(&user).Error
 
 	return user, result
 }

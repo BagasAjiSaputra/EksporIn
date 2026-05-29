@@ -65,10 +65,14 @@ export function UpdateProfileModal({
     setSuccess(false)
     startTransition(async () => {
       try {
-        await UpdateProfile(formData)
-        setSuccess(true)
-        formRef.current?.reset()
-        setTimeout(() => handleClose(), 1500)
+        const res = await UpdateProfile(formData)
+        if (res?.error) {
+          alert(res.error)
+        } else {
+          setSuccess(true)
+          formRef.current?.reset()
+          setTimeout(() => handleClose(), 1500)
+        }
       } catch (err: unknown) {
         setError(err instanceof Error ? err.message : "Terjadi kesalahan, coba lagi.")
       }

@@ -1,5 +1,7 @@
+"use client"
 import { VerifyRole } from "@/features/auth/role_verified"
 import { ShieldCheck, Clock, ShieldQuestion, ShieldAlert } from "lucide-react"
+
 // ── Status types ─────────────────────────────────────────────────────────
 export type VerifyStatus = "verified" | "pending" | "unverified"
  
@@ -17,10 +19,17 @@ export function RoleVerifyButton({ status }: { status: VerifyStatus }) {
       </div>
     )
   }
+
+  async function clientVerifyRole() {
+    const res = await VerifyRole()
+    if (res?.error) {
+      alert(res.error)
+    }
+  }
  
   // unverified → active submit button
   return (
-    <form action={VerifyRole}>
+    <form action={clientVerifyRole}>
       <button
         type="submit"
         className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 hover:border-indigo-300 active:scale-95 transition-all duration-150 cursor-pointer whitespace-nowrap"
