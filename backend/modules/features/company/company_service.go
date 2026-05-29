@@ -64,3 +64,11 @@ func UpdateCompanyService(user_id uuid.UUID, name string, phone string, address 
 
 	return company, nil
 }
+
+func GetCompanyByUserIDService(user_id uuid.UUID) (*models.Company, error) {
+	company, err := FindCompany(user_id)
+	if err != nil {
+		return nil, errors.New("Perusahaan Tidak Ditemukan")
+	}
+	return company, nil
+}
