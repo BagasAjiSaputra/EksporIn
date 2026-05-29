@@ -20,7 +20,7 @@ export async function register(formData: FormData) {
   const data = await res.json()
 
   if (!res.ok) {
-    throw new Error("Gagal Registrasi Akun")
+    return { error: "Gagal Registrasi Akun" }
   }
 
   const cookieStore = await cookies()

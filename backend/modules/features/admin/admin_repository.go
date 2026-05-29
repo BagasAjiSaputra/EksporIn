@@ -3,10 +3,11 @@ package admin
 import (
 	"eksporin/config"
 	"eksporin/models"
+
 	"github.com/google/uuid"
 )
 
-func VerifyUser(user *models.User) error{
+func VerifyUser(user *models.User) error {
 	return config.DB.Create(user).Error
 }
 

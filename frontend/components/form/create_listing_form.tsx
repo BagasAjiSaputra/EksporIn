@@ -17,7 +17,19 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export function CreateListingForm() {
+interface CommodityData {
+  id: string;
+  name: string;
+  category: string;
+}
+
+export function CreateListingForm({
+  companyId,
+  commodities,
+}: {
+  companyId: string;
+  commodities: CommodityData[];
+}) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -81,20 +93,28 @@ export function CreateListingForm() {
               type="text"
               placeholder="UUID Perusahaan"
               required
+              readOnly
+              defaultValue={companyId}
               disabled={isPending}
-              className="w-full h-11 px-3.5 rounded-xl border border-stone-200 bg-stone-50 text-sm text-stone-900 placeholder:text-stone-300 outline-none transition-all focus:border-stone-400 focus:bg-white focus:ring-2 focus:ring-stone-100 disabled:opacity-50"
+              className="w-full h-11 px-3.5 rounded-xl border border-stone-200 bg-stone-50 text-sm text-stone-900 placeholder:text-stone-300 outline-none transition-all focus:border-stone-400 focus:bg-white focus:ring-2 focus:ring-stone-100 disabled:opacity-50 cursor-not-allowed"
             />
           </Field>
 
-          {/* Commodity ID */}
-          <Field label="Commodity ID" icon={<Box size={14} strokeWidth={2} />}>
-            <input
+          {/* Commodity */}
+          <Field label="Komoditas" icon={<Box size={14} strokeWidth={2} />}>
+            <select
               name="commodity_id"
-              type="text"
-              placeholder="UUID Komoditas (opsional)"
+              required
               disabled={isPending}
-              className="w-full h-11 px-3.5 rounded-xl border border-stone-200 bg-stone-50 text-sm text-stone-900 placeholder:text-stone-300 outline-none transition-all focus:border-stone-400 focus:bg-white focus:ring-2 focus:ring-stone-100 disabled:opacity-50"
-            />
+              className="w-full h-11 px-3.5 rounded-xl border border-stone-200 bg-stone-50 text-sm text-stone-900 outline-none transition-all focus:border-stone-400 focus:bg-white focus:ring-2 focus:ring-stone-100 disabled:opacity-50 cursor-pointer"
+            >
+              <option value="" disabled selected>-- Pilih Komoditas --</option>
+              {commodities.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name} ({c.category})
+                </option>
+              ))}
+            </select>
           </Field>
 
           {/* Title */}

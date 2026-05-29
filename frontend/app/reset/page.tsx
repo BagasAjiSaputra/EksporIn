@@ -1,6 +1,14 @@
+"use client"
 import { resetToken } from "@/features/auth/reset_token"
 
 export default function ResetPage() {
+  async function clientResetToken(formData: FormData) {
+    const res = await resetToken(formData)
+    if (res?.error) {
+      alert(res.error)
+    }
+  }
+
   return (
     <main className="min-h-screen bg-stone-50 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
@@ -13,7 +21,7 @@ export default function ResetPage() {
 
         {/* Card */}
         <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm">
-          <form action={resetToken} className="space-y-4">
+          <form action={clientResetToken} className="space-y-4">
 
             {/* Email */}
             <div className="space-y-1.5">

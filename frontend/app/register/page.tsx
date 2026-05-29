@@ -1,6 +1,14 @@
+"use client"
 import { register } from "@/features/auth/register"
 
 export default function RegisterPage() {
+  async function clientRegister(formData: FormData) {
+    const res = await register(formData)
+    if (res?.error) {
+      alert(res.error)
+    }
+  }
+
   return (
     <main className="min-h-screen bg-stone-50 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
@@ -19,7 +27,7 @@ export default function RegisterPage() {
 
         {/* Card */}
         <div className="bg-white border border-stone-200 rounded-2xl p-6 shadow-sm">
-          <form action={register} className="space-y-4">
+          <form action={clientRegister} className="space-y-4">
 
             {/* Name */}
             <div className="space-y-1.5">

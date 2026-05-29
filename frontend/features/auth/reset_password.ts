@@ -10,7 +10,7 @@ export async function resetPassword(formData: FormData) {
   console.log(token)
 
   if (!token) {
-    throw new Error("Token tidak ditemukan")
+    return { error: "Token tidak ditemukan" }
   }
 
   const res = await fetch(`${BASE_URL}/reset-password`, {
@@ -25,7 +25,7 @@ export async function resetPassword(formData: FormData) {
   })
 
   if (!res.ok) {
-    throw new Error("Reset password gagal")
+    return { error: "Reset password gagal" }
   }
 
   redirect("/login")
