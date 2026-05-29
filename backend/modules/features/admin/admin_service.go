@@ -45,3 +45,13 @@ func GetAllUserService() ([]models.User, error) {
 
 	return users, nil
 }
+
+func GetUsersByRoleService(role string) ([]models.User, error) {
+	users, err := GetUsersByRole(role)
+
+	if err != nil {
+		return nil, errors.New("Gagal mengambil data user berdasarkan role")
+	}
+
+	return users, nil
+}

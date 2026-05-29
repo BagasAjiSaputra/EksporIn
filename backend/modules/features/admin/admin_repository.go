@@ -34,3 +34,11 @@ func GetAllUser() ([]models.User, error) {
 
 	return user, result
 }
+
+func GetUsersByRole(role string) ([]models.User, error) {
+	var user []models.User
+
+	result := config.DB.Where("role = ?", role).Find(&user).Error
+
+	return user, result
+}
