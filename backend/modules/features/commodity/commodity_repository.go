@@ -29,3 +29,15 @@ func UpdateCommodity(commodity *models.Commodity) error {
 func DeleteCommodity(id uuid.UUID) error {
 	return config.DB.Delete(&models.Commodity{}, "id = ?", id).Error
 }
+
+func FindAllCommodities() ([]models.Commodity, error) {
+	var commodities []models.Commodity
+
+	result := config.DB.Find(&commodities)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return commodities, nil
+}

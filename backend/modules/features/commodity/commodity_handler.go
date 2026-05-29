@@ -110,3 +110,26 @@ func DeleteCommodityHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
+
+func GetAllCommoditiesHandler(w http.ResponseWriter, r *http.Request) {
+	// Optional: if commodity list should only be visible to logged-in users, add middleware check here.
+	// But usually commodities are public or at least readable by any user.
+
+	commodities, err := GetAllCommoditiesService()
+	if err != nil {
+		utils.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var response = []CommodityData{}
+	for _, commodity := range commodities {
+		response = append(response, CommodityData{
+			ID:       commodity.ID,
+			Name:     commodity.Name,
+			Category: commodity.Category,
+		})
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
