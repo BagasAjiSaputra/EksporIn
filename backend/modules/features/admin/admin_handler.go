@@ -1,7 +1,7 @@
 package admin
 
 import (
-	// "eksporin/models"
+	"eksporin/models"
 	"eksporin/modules/middleware"
 	"eksporin/modules/utils"
 	"encoding/json"
@@ -52,7 +52,16 @@ func GetAllUserHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	users, err := GetAllUserService()
+	roleParam := r.URL.Query().Get("role")
+
+	var users []models.User
+	var err error
+
+	if roleParam != "" {
+		users, err = GetUsersByRoleService(roleParam)
+	} else {
+		users, err = GetAllUserService()
+	}
 
 	if err != nil {
 		utils.Error(w, err.Error(), http.StatusInternalServerError)
