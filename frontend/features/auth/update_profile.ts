@@ -24,6 +24,6 @@ export async function UpdateProfile(formData: FormData) {
   const data = await res.json()
 
   if (!res.ok) {
-    throw new Error("Gagal Update Profile")
+    return { error: "Gagal Update Profile" }
   }
 }

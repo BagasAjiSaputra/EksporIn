@@ -17,7 +17,7 @@ export async function resetToken(formData: FormData) {
   const data = await res.json()
 
   if (!res.ok) {
-    throw new Error("Email Invalid")
+    return { error: "Email Invalid" }
   }
 
   redirect("/register")

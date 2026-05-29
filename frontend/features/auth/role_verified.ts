@@ -17,7 +17,7 @@ export async function VerifyRole() {
   const data = await res.json()
 
   if (!res.ok) {
-    throw new Error("Gagal Registrasi Akun")
+    return { error: "Gagal Registrasi Akun" }
   }
 
   return data
