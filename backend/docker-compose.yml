@@ -27,6 +27,10 @@ services:
       DB_NAME: eksporin
       DB_SSLMODE: disable
       JWT_SECRET: secret
+      SMTP_HOST: smtp.gmail.com      
+      SMTP_PORT: "465"               
+      SMTP_EMAIL: kamu@gmail.com     
+      SMTP_PASS: xxxx-xxxx-xxxx-xxxx 
     working_dir: /app
     command: ["./server"]
 

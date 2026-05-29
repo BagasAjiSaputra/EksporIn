@@ -58,3 +58,11 @@ func DeleteCommodityService(id uuid.UUID) (*models.Commodity, error) {
 
 	return commodity, nil
 }
+
+func GetAllCommoditiesService() ([]models.Commodity, error) {
+	commodities, err := FindAllCommodities()
+	if err != nil {
+		return nil, errors.New("Gagal Mengambil Data Komoditas")
+	}
+	return commodities, nil
+}

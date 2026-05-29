@@ -76,3 +76,28 @@ func UpdateCompanyHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
+
+func GetCompanyHandler(w http.ResponseWriter, r *http.Request) {
+	userID, ok := r.Context().Value(middleware.UserIDKey).(uuid.UUID)
+	if !ok {
+		utils.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	company, err := GetCompanyByUserIDService(userID)
+	if err != nil {
+		utils.Error(w, err.Error(), http.StatusNotFound)
+		return
+	}
+
+	response := GetCompanyResponse{
+		ID:          company.ID,
+		UserID:      company.UserID,
+		CompanyName: company.CompanyName,
+		Phone:       company.Phone,
+		Address:     company.Address,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}

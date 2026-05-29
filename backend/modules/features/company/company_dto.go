@@ -26,3 +26,11 @@ type UpdateCompanyResponse struct {
 	Phone		string			`json:"phone"`
 	Address		string			`json:"address"`
 }
+
+type GetCompanyResponse struct {
+	ID			uuid.UUID		`json:"id"`
+	UserID		uuid.UUID		`json:"user_id"`
+	CompanyName	string			`json:"company_name"`
+	Phone		string			`json:"phone"`
+	Address		string			`json:"address"`
+}

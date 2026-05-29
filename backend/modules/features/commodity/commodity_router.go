@@ -8,6 +8,8 @@ import (
 func CommodityRouter(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
+	case http.MethodGet:
+		GetAllCommoditiesHandler(w, r)
 	case http.MethodPost:
 		CreateCommodityHandler(w, r)
 	case http.MethodPut:
