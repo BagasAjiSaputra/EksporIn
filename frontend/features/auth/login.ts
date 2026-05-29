@@ -19,7 +19,7 @@ export async function login(formData: FormData) {
   const data = await res.json()
 
   if (!res.ok) {
-    throw new Error("Email / password salah")
+    return { error: "Email / password salah" }
   }
 
   const cookieStore = await cookies()
