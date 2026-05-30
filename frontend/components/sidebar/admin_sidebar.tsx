@@ -12,12 +12,14 @@ import {
   X,
   ChevronRight,
   Bell,
+  Box,
 } from "lucide-react"
 import { Logout } from "@/features/auth/logout"
 
 const adminNavItems = [
   { icon: LayoutDashboard, label: "Overview", href: "/admin" },
   { icon: Users,           label: "Kelola User", href: "/admin/users" },
+  { icon: Box,             label: "Komoditas",   href: "/admin/commodity" },
   { icon: ShieldCheck,     label: "Verifikasi",  href: "/admin/verify" },
 ]
 
