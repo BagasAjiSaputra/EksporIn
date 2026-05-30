@@ -11,6 +11,8 @@ func ListingRouter(w http.ResponseWriter, r *http.Request) {
 			CreateListingHandler(w, r)
 		case http.MethodGet:
 			GetListingByIDHandler(w, r)
+		case http.MethodPut:
+			UpdateListingHandler(w, r)
 	}
 
 }
