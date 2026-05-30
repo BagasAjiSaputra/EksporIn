@@ -4,12 +4,13 @@ import (
 	"eksporin/models"
 	"eksporin/modules/utils"
 	"errors"
-	"github.com/google/uuid"
-	"time"
 	"fmt"
+	"time"
+
+	"github.com/google/uuid"
 )
 
-func RegisterUser(name string, email string, password string)(*models.User, error) {
+func RegisterUser(name string, email string, password string) (*models.User, error) {
 
 	if name == "" || email == "" || password == "" {
 		return nil, errors.New("All Field Required")
@@ -20,11 +21,11 @@ func RegisterUser(name string, email string, password string)(*models.User, erro
 	if err != nil {
 		return nil, err
 	}
-	
+
 	user := &models.User{
-		Name: name,
-		Email : email,
-		Password : hashedPassword,
+		Name:     name,
+		Email:    email,
+		Password: hashedPassword,
 	}
 
 	err = CreateUser(user)
@@ -37,7 +38,7 @@ func RegisterUser(name string, email string, password string)(*models.User, erro
 }
 
 func LoginUser(email string, password string) (string, error) {
-	user := FindByEmail(email) 
+	user := FindByEmail(email)
 
 	if user == nil {
 		return "", errors.New("Invalid Credentials")
@@ -93,7 +94,7 @@ func UpdateUserByID(id uuid.UUID, name string, email string, password string) (*
 	return user, nil
 }
 
-func RequestVerified(id uuid.UUID ) (*models.User, error) {
+func RequestVerified(id uuid.UUID) (*models.User, error) {
 
 	user, err := FindByID(id)
 
@@ -126,7 +127,6 @@ func RequestResetPassword(email string) (string, error) {
 	if err != nil {
 		return "", nil
 	}
-
 
 	resetLink := fmt.Sprintf("http://localhost:3000/reset-password?token=%s", token)
 
