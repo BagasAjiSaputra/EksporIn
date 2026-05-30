@@ -14,13 +14,14 @@ import {
   X,
   ChevronRight,
   Tag,
+  Package,
 } from "lucide-react"
 import { Logout } from "@/features/auth/logout"
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
   { icon: Users,           label: "Users",     href: "/dashboard/users" },
-  { icon: Tag,             label: "Buat Listing", href: "/dashboard/listing/create" },
+  { icon: Package,         label: "Kelola Listing", href: "/dashboard/listing" },
   { icon: FileText,        label: "Reports",   href: "/dashboard/reports" },
   { icon: Bell,            label: "Notifications", href: "/dashboard/notifications" },
   { icon: Settings,        label: "Settings",  href: "/dashboard/settings" },
