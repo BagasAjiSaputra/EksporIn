@@ -29,5 +29,21 @@ export async function login(formData: FormData) {
     path: "/",
   })
 
+  // Fetch profile to check role
+  const profileRes = await fetch(`${BASE_URL}/api/profile`, {
+    method: "GET",
+    headers: {
+      Cookie: `token=${encodeURIComponent(data.token)}`,
+    },
+    cache: "no-store",
+  })
+
+  if (profileRes.ok) {
+    const profile = await profileRes.json()
+    if (profile.role === "admin") {
+      redirect("/admin")
+    }
+  }
+
   redirect("/dashboard")
 }

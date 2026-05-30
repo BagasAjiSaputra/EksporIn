@@ -67,8 +67,8 @@ func LoginUserHandler(w http.ResponseWriter, r *http.Request) {
 	})
 
 	response := LoginResponse{
-		Message : "Login Berhasil",
-		Token : token,
+		Message: "Login Berhasil",
+		Token:   token,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
