@@ -18,6 +18,7 @@ import {
 } from "@/components/form/role_verify";
 import { GetCompany } from "@/features/company/get_company";
 import { UpdateProfileModal } from "@/components/form/update_account";
+import { UpdateCompanyModal } from "@/components/form/update_company";
 
 export default async function DashboardPage() {
   const profile = await GetProfile();
@@ -109,6 +110,7 @@ export default async function DashboardPage() {
           
           <div className="flex-1">
             {company ? (
+            <>
               <div className="divide-y divide-neutral-100">
                 <div className="flex justify-between py-3.5 gap-4">
                   <span className="text-xs text-neutral-400 font-medium">Nama</span>
@@ -129,6 +131,14 @@ export default async function DashboardPage() {
                   </span>
                 </div>
               </div>
+              <div className="pt-2 border-t border-neutral-100 flex justify-end mt-4">
+                <UpdateCompanyModal
+                  defaultName={company.company_name}
+                  defaultPhone={company.phone}
+                  defaultAddress={company.address}
+                />
+              </div>
+            </>
             ) : (
               <div className="h-full flex flex-col items-center justify-center text-center space-y-3 py-6">
                 <div className="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-full flex items-center justify-center border border-indigo-100">
