@@ -2,6 +2,7 @@ package testimage
 
 import (
 	"eksporin/modules/utils"
+	"log"
 	"net/http"
 	"os"
 )
@@ -14,11 +15,12 @@ func GetTestImageHandler(w http.ResponseWriter, r *http.Request) {
 
 	files, err := os.ReadDir(uploadPath)
 	if err != nil {
-		utils.Error(w, "Failed to read upload directory", http.StatusInternalServerError)
+		log.Println("Error ReadDir:", err, "Path:", uploadPath)
+		utils.Error(w, "Failed to read upload directory: "+err.Error()+" | Path: "+uploadPath, http.StatusInternalServerError)
 		return
 	}
 
-	var images []string
+	images := []string{}
 	for _, file := range files {
 		if !file.IsDir() {
 			images = append(images, "/uploads/"+file.Name())
