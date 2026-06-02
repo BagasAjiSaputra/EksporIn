@@ -14,6 +14,7 @@ services:
 
   api:
     container_name: eksporin_api
+    restart: unless-stopped
     build: .
     depends_on:
       - db
@@ -31,6 +32,9 @@ services:
       SMTP_PORT: ${SMTP_PORT}               
       SMTP_EMAIL: ${SMTP_EMAIL}     
       SMTP_PASS: ${SMTP_PASS}
+      UPLOAD_PATH: ${UPLOAD_PATH}
+    volumes:
+      - ${UPLOAD_PATH}:/app/storage/uploads
     working_dir: /app
     command: ["./server"]
 
