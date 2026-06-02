@@ -31,4 +31,4 @@ Thumbs.db
 # Log
 *.log
 
-storage/
+# storage/
