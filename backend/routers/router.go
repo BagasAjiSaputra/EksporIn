@@ -5,6 +5,7 @@ import (
 	"eksporin/modules/features/commodity"
 	"eksporin/modules/features/company"
 	"eksporin/modules/features/listing"
+	"eksporin/modules/features/testimage"
 
 	// "eksporin/modules/features/listing"
 	"eksporin/modules/features/users"
@@ -28,6 +29,7 @@ func Router() {
 	publicMux.HandleFunc("/token-reset", users.SendTokenResetHandler)
 	publicMux.HandleFunc("/reset-password", users.ResetPasswordHandler)
 	publicMux.HandleFunc("/listing", listing.GetAllListingHandler)
+	publicMux.HandleFunc("/test-image", testimage.TestImageRouter)
 
 	// PROTECTED
 	protectedMux.HandleFunc("/profile", users.ProfileRouter)
