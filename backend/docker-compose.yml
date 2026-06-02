@@ -34,7 +34,7 @@ services:
       SMTP_PASS: ${SMTP_PASS}
       UPLOAD_PATH: /app/storage/uploads
     volumes:
-      - ${UPLOAD_PATH}:/app/storage/uploads
+      - ./storage/uploads:/app/storage/uploads
     working_dir: /app
     command: ["./server"]
 

@@ -20,7 +20,7 @@ func GetTestImageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var images []string
+	images := []string{}
 	for _, file := range files {
 		if !file.IsDir() {
 			images = append(images, "/uploads/"+file.Name())
