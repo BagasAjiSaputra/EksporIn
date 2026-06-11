@@ -365,8 +365,8 @@ func UpdateListingHandler(w http.ResponseWriter, r *http.Request) {
 
 func DeleteListingHandler(w http.ResponseWriter, r *http.Request) {
 	role, ok := r.Context().Value(middleware.UserRole).(string)
-	if !ok || role != "agregator" {
-		utils.Error(w, "Belum Terverifikasi", http.StatusUnauthorized)
+	if !ok || (role != "agregator" && role != "admin") {
+		utils.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
 
@@ -383,7 +383,7 @@ func DeleteListingHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = DeleteListingService(req.ID, userID)
+	err = DeleteListingService(req.ID, userID, role)
 	if err != nil {
 		utils.Error(w, err.Error(), http.StatusBadRequest)
 		return

@@ -153,7 +153,7 @@ func UpdateListingService(input *UpdateListingRequest) error {
 	return nil
 }
 
-func DeleteListingService(listingID uuid.UUID, userID uuid.UUID) error {
+func DeleteListingService(listingID uuid.UUID, userID uuid.UUID, userRole string) error {
 	if listingID == uuid.Nil {
 		return errors.New("Listing ID Invalid")
 	}
@@ -163,7 +163,7 @@ func DeleteListingService(listingID uuid.UUID, userID uuid.UUID) error {
 		return errors.New("Listing tidak ditemukan")
 	}
 
-	if listing.UserID != userID {
+	if userRole != "admin" && listing.UserID != userID {
 		return errors.New("Unauthorized to delete this listing")
 	}
 
