@@ -362,3 +362,38 @@ func UpdateListingHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 }
+
+func DeleteListingHandler(w http.ResponseWriter, r *http.Request) {
+	role, ok := r.Context().Value(middleware.UserRole).(string)
+	if !ok || role != "agregator" {
+		utils.Error(w, "Belum Terverifikasi", http.StatusUnauthorized)
+		return
+	}
+
+	userID, ok := r.Context().Value(middleware.UserIDKey).(uuid.UUID)
+	if !ok {
+		utils.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	var req DeleteListingRequest
+	err := json.NewDecoder(r.Body).Decode(&req)
+	if err != nil {
+		utils.Error(w, "Invalid Request", http.StatusBadRequest)
+		return
+	}
+
+	err = DeleteListingService(req.ID, userID)
+	if err != nil {
+		utils.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	response := DeleteListingResponse{
+		Message: "Berhasil Menghapus Listing",
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+

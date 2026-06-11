@@ -1,18 +1,22 @@
 package listing
 
 import (
+	"eksporin/modules/utils"
 	"net/http"
 )
 
 func ListingRouter(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
-		case http.MethodPost:
-			CreateListingHandler(w, r)
-		case http.MethodGet:
-			GetListingByIDHandler(w, r)
-		case http.MethodPut:
-			UpdateListingHandler(w, r)
+	case http.MethodPost:
+		CreateListingHandler(w, r)
+	case http.MethodGet:
+		GetListingByIDHandler(w, r)
+	case http.MethodPut:
+		UpdateListingHandler(w, r)
+	case http.MethodDelete:
+		DeleteListingHandler(w, r)
+	default:
+		utils.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
-
 }

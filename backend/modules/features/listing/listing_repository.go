@@ -48,3 +48,8 @@ func GetListingByListingID(id uuid.UUID) (*models.Listing, error) {
 func UpdateListing(listing *models.Listing) error {
 	return config.DB.Save(listing).Error
 }
+
+func DeleteListing(id uuid.UUID) error {
+	return config.DB.Delete(&models.Listing{}, "id = ?", id).Error
+}
+

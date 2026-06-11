@@ -98,3 +98,12 @@ type GetListingID struct {
 	ExpiredAt     time.Time `json:"expired_at"`
 	Status        string    `json:"status"`
 }
+
+type DeleteListingRequest struct {
+	ID uuid.UUID `json:"id"`
+}
+
+type DeleteListingResponse struct {
+	Message string `json:"message"`
+}
+
