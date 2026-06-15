@@ -305,3 +305,37 @@ func UploadProfileImageHandler(w http.ResponseWriter, r *http.Request) {
 		"image_url": imageUrl,
 	})
 }
+
+func GetPublicUserHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		utils.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	idStr := r.URL.Query().Get("id")
+	if idStr == "" {
+		utils.Error(w, "User ID is required", http.StatusBadRequest)
+		return
+	}
+
+	id, err := uuid.Parse(idStr)
+	if err != nil {
+		utils.Error(w, "Invalid User ID format", http.StatusBadRequest)
+		return
+	}
+
+	user, err := GetUserByID(id)
+	if err != nil {
+		utils.Error(w, "User tidak ditemukan", http.StatusNotFound)
+		return
+	}
+
+	response := PublicUserResponse{
+		ID:        user.ID,
+		Name:      user.Name,
+		UserImage: user.UserImage,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}

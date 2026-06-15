@@ -82,3 +82,9 @@ type ResetPasswordResponse struct {
 type Response struct {
 	Message string `json:"message"`
 }
+
+type PublicUserResponse struct {
+	ID        uuid.UUID `json:"id"`
+	Name      string    `json:"name"`
+	UserImage string    `json:"user_image"`
+}

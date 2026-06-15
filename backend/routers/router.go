@@ -30,6 +30,7 @@ func Router() {
 	publicMux.HandleFunc("/reset-password", users.ResetPasswordHandler)
 	publicMux.HandleFunc("/listing", listing.GetAllListingHandler)
 	publicMux.HandleFunc("/test-image", testimage.TestImageRouter)
+	publicMux.HandleFunc("/user/public", users.GetPublicUserHandler)
 
 	// PROTECTED
 	protectedMux.HandleFunc("/profile", users.ProfileRouter)
