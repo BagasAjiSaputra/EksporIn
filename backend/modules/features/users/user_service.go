@@ -60,7 +60,7 @@ func GetUserByID(id uuid.UUID) (*models.User, error) {
 	return FindByID(id)
 }
 
-func UpdateUserByID(id uuid.UUID, name string, email string, password string) (*models.User, error) {
+func UpdateUserByID(id uuid.UUID, name string, email string, password string, userImage string) (*models.User, error) {
 
 	user, err := FindByID(id)
 
@@ -83,6 +83,10 @@ func UpdateUserByID(id uuid.UUID, name string, email string, password string) (*
 		}
 
 		user.Password = hashedPassword
+	}
+
+	if userImage != "" {
+		user.UserImage = userImage
 	}
 
 	err = UpdateUser(user)

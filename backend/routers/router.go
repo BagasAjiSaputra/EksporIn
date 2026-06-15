@@ -33,6 +33,7 @@ func Router() {
 
 	// PROTECTED
 	protectedMux.HandleFunc("/profile", users.ProfileRouter)
+	protectedMux.HandleFunc("/profile/upload", users.UploadProfileImageHandler)
 	protectedMux.HandleFunc("/verified", users.UpdateRequestVerified)
 	protectedMux.HandleFunc("/company", company.CompanyRouter)
 	protectedMux.HandleFunc("/manage-listing", listing.ListingRouter)

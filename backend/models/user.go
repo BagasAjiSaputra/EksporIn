@@ -33,6 +33,7 @@ type User struct {
 	CreatedAt	time.Time	`gorm:"autoCreateTime"`
 	ResetToken	*string		`gorm:"unique;default:null"`
 	ResetExp	*time.Time	`gorm:"default:null"`
+	UserImage	string		`gorm:"type:varchar(255);default:null"`
 
 	Company		*Company	`gorm:"foreignKey:UserID"`
 }

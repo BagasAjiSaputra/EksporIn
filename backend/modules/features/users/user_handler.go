@@ -5,8 +5,13 @@ import (
 	"eksporin/modules/utils"
 	"encoding/json"
 	"net/http"
+	"os"
+	"image"
+	"image/jpeg"
+	_ "image/png"
 
 	"github.com/google/uuid"
+	"github.com/nfnt/resize"
 )
 
 func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
@@ -93,6 +98,7 @@ func GetProfileHander(w http.ResponseWriter, r *http.Request) {
 		Role:       string(user.Role),
 		IsVerified: string(user.IsVerified),
 		CreatedAt:  user.CreatedAt,
+		UserImage:  user.UserImage,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -116,7 +122,7 @@ func UpdateProfileHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := UpdateUserByID(userID, req.Name, req.Email, req.Password)
+	user, err := UpdateUserByID(userID, req.Name, req.Email, req.Password, req.UserImage)
 
 	if err != nil {
 		utils.Error(w, "Gagal Update User", http.StatusInternalServerError)
@@ -124,10 +130,11 @@ func UpdateProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := UpdateUserResponse{
-		ID:       userID,
-		Name:     user.Name,
-		Email:    user.Email,
-		Password: user.Password,
+		ID:        userID,
+		Name:      user.Name,
+		Email:     user.Email,
+		Password:  user.Password,
+		UserImage: user.UserImage,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
@@ -230,4 +237,71 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
+}
+
+func UploadProfileImageHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		utils.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	err := r.ParseMultipartForm(10 << 20) // 10MB max
+	if err != nil {
+		utils.Error(w, "Invalid Request", http.StatusBadRequest)
+		return
+	}
+
+	file, _, err := r.FormFile("image")
+	if err != nil {
+		utils.Error(w, "File image required", http.StatusBadRequest)
+		return
+	}
+	defer file.Close()
+
+	// Decode image
+	img, _, err := image.Decode(file)
+	if err != nil {
+		utils.Error(w, "Format gambar tidak valid", http.StatusBadRequest)
+		return
+	}
+
+	// Resize (max width 800px)
+	resized := resize.Resize(800, 0, img, resize.Lanczos3)
+
+	// Ensure upload directory exists
+	uploadPath := os.Getenv("UPLOAD_PATH")
+	if uploadPath == "" {
+		uploadPath = "./storage/uploads"
+	}
+	if err := os.MkdirAll(uploadPath, os.ModePerm); err != nil {
+		utils.Error(w, "Gagal membuat direktori upload", http.StatusInternalServerError)
+		return
+	}
+
+	// Generate filename
+	filename := uuid.New().String() + ".jpg"
+	path := uploadPath + "/" + filename
+
+	out, err := os.Create(path)
+	if err != nil {
+		utils.Error(w, "Gagal simpan file", http.StatusInternalServerError)
+		return
+	}
+	defer out.Close()
+
+	// Compress JPEG
+	err = jpeg.Encode(out, resized, &jpeg.Options{
+		Quality: 100,
+	})
+	if err != nil {
+		utils.Error(w, "Gagal encode gambar", http.StatusInternalServerError)
+		return
+	}
+
+	imageUrl := "/uploads/" + filename
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{
+		"image_url": imageUrl,
+	})
 }

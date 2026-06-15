@@ -37,12 +37,14 @@ type GetProfile struct {
 	Role		string		`json:"role"`
 	IsVerified	string		`json:"is_verified"`
 	CreatedAt	time.Time	`json:"created_at"`
+	UserImage	string		`json:"user_image"`
 }
 
 type UpdateUserRequest struct {
 	Name		string		`json:"name"`
 	Email		string		`json:"email"`
 	Password	string		`json:"password"`
+	UserImage	string		`json:"user_image"`
 }
 
 type UpdateUserResponse struct {
@@ -50,6 +52,7 @@ type UpdateUserResponse struct {
 	Name		string		`json:"name"`
 	Email		string		`json:"email"`
 	Password	string		`json:"password"`
+	UserImage	string		`json:"user_image"`
 }
 
 type UpdateIsVerified struct {
